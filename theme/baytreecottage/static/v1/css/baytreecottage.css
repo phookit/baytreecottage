@@ -1,0 +1,346 @@
+/* 
+
+Heading colour: #0f0f0f
+
+# brand colour
+color: #010151;
+
+*/
+
+/* Global Styles */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Arvo', serif;
+  padding-top: 50px;
+  color: black;
+ /* body padding for fixed top nav */
+}
+
+.img-home-portfolio,
+.img-customer,
+.portfolio-item {
+  margin-bottom: 30px;
+}
+
+.tab-pane {
+  margin-top: 15px;
+}
+
+/* Page Sections */
+.section,
+.section-colored {
+  padding: 5px 0 10px;
+}
+
+.section-colored {
+  background-color: #FF0000;
+ /* change this to change the background color of a colored section */
+}
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3{
+  color: #111;
+}
+a {
+  color: #515181;
+}  
+
+a:hover {
+  color: #010151;
+}  
+a:focus {
+  color: #0f8f8f;
+}  
+
+.site-main-header {
+    background-color: #fff;
+}
+
+.site-main-header ul {
+    background-color: #fff;
+}
+
+.section h2 {
+    color: #000;
+    padding: 2px 5px 2px 15px;
+}
+
+.section-even h2 {
+    background-color: #dddddd;
+}
+.section-odd h2 {
+    background-color: #eeeeee;
+}
+
+
+.sidebar {
+  margin-top: 40px;
+}
+
+.sidebar ul {
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid #cccccc;
+}
+
+/* Half Page Height Carousel Customization */
+.carousel {
+  height: 50%;
+}
+
+.carousel-caption {
+  opacity:0.4;
+}
+
+.item,
+.active,
+.carousel-inner {
+  height: 100%;
+}
+
+.fill {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+/* Social Icons Styles */
+.list-social-icons {
+  margin-bottom: 45px;
+}
+
+.tooltip-social a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.email-link a:hover {
+  color: #dddddd;
+}
+
+.facebook-link a:hover {
+  color: #3b5998;
+}
+
+.linkedin-link a:hover {
+  color: #007fb1;
+}
+
+.twitter-link a:hover {
+  color: #39a9e0;
+}
+
+.google-plus-link a:hover {
+  color: #d14836;
+}
+
+/* Service Page Styles */
+.service-icon {
+  font-size: 50px;
+}
+
+/* 404 Page Styles */
+.error-404 {
+  font-size: 8em;
+}
+
+/* Pricing Page Styles */
+.price {
+  font-size: 4em;
+}
+
+.price-cents {
+  vertical-align: super;
+  font-size: 50%;
+}
+
+.price-month {
+  font-size: 35%;
+  font-style: italic;
+}
+
+
+/* Footer Styles */
+footer {
+  margin: 50px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 767px) {
+
+ /* increases the carousel height so it looks good on phones */
+  .carousel {
+    height: 70%;
+  }
+}
+
+
+/* Original Mezzanine nav and tree menu */
+.alert {
+  padding: 5px 10px;
+}
+.alert-dismissable .close {
+  right: 0;
+}
+ul, ol {
+  padding-left:20px;
+}
+.tree {
+  padding: 5px 0;
+}
+.tree ul a {
+  padding: 7px 15px;
+}
+
+.navbar-default {
+  background-color: #fff;
+}
+
+.navbar-default .navbar-brand {
+  font-family: 'Nixie One', cursive;
+  color: #111;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ddd;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #111;
+      text-decoration: underline;
+    -moz-text-decoration-color: #eeddd6;
+    text-decoration-color: #eeddd6;
+    
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #000;
+  text-decoration: underline;
+  -moz-text-decoration-color: #add4da;
+  text-decoration-color: #add4da;
+}
+.navbar-default .navbar-nav > .active > a {
+    color: #000;
+    background-color: #eeddd6;
+}
+
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #000;
+  background-color: #eeddd6;
+  text-decoration: underline;
+  -moz-text-decoration-color: #add4da;
+  text-decoration-color: #add4da;
+}
+
+
+.navlist-menu-level-0 {
+  margin:-5px 0;
+}
+.navbar-text {
+  font-style: italic;
+  font-size: 11px;
+  color: #515181 !important;;
+  line-height: 100%;
+  padding-top: 5px;
+  margin:15px 20px 0 5px;
+}
+.navbar-form.navbar-right {
+  padding-right: 0;
+  margin-right: -10px;
+}
+.navbar-form.navbar-right .form-group {
+  margin-right: 2px;
+}
+
+.navbar-brand {
+  font-weight: bold; 
+  font-size: 24px;
+  line-height: 20px;
+}
+
+
+.messages {
+  margin-top: 20px;
+}
+.tree > .nav .nav > li {
+  padding-left: 15px;
+}
+.tree .active > a {
+  background-color: #EEEEEE;
+}
+.tree .active-branch > a {
+  font-weight: bold;
+}
+.nav-footer {
+  display: table;
+  margin: 0 auto;
+}
+.nav-footer > img {
+  margin-right: 20px;
+}
+
+.nav-footer > ul {
+  display: inline-block;
+  /*width: 150px;*/
+  margin-left: 30px;
+  vertical-align: top;
+}
+.nav-footer > ul > li {
+  padding: 6px 0;
+}
+
+
+footer {
+  background-color: #F8F8F8;
+  border-top: 1px solid #E7E7E7;
+  margin-top: 15px;
+  padding: 15px 0 30px;
+}
+footer .separator {
+  opacity: 0.3;
+  margin: 0 10px;
+}
+
+.statement {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.statement-image-left {
+    float: left !important;
+    padding: 15px 15px 15px 15px;
+}
+.statement-image-right {
+    float: right !important;
+    margin: 25px 15px 15px 15px;
+}
+
+
+.container-heading-house {
+  background: url('heading-house.png') no-repeat 0px 15px,url('heading-line.png') no-repeat 41px 57px;
+}
+.container-heading-detail {
+  background: url('heading-detail.png') no-repeat 0px 15px,url('heading-line.png') no-repeat 41px 57px;
+}
+
+.row {
+  padding-left: 50px;
+}
+
+.badge {  
+    background-color: #add4da;  
+    color: #fff;  
+    font-size: 14px;  
+}  
+    
+
+
+
+
