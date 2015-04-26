@@ -22,16 +22,12 @@
 <script src="/static/v1/js/baytreecottage.js"></script>
 
 <script>
-
 </script>
-
-
 
 <!--[if lt IE 9]>
 <script src="/static/js/html5shiv.js"></script>
 <script src="/static/js/respond.min.js"></script>
 <![endif]-->
-
 
 </head>
 
@@ -62,122 +58,12 @@
 </div> <!-- container -->
 </div></nav>
 
-
-    
-    <div id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1" ></li>
-            <li data-target="#myCarousel" data-slide-to="2" ></li>
-            
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            
-            <div class="item active">
-                <div class="fill" style="background-image:url(/static/v1/img/slider1.jpg);"></div>
-                <div class="carousel-caption">
-                    <h1 style="color:#f0f0f0;"></h1>
-                </div>
-            </div>
-            
-            <div class="item">
-                <div class="fill" style="background-image:url(/static/v1/img/slider2.jpg);"></div>
-                <div class="carousel-caption">
-                    <h1 style="color:#f0f0f0;"></h1>
-                </div>
-            </div>
-            
-            
-            <div class="item">
-                <div class="fill" style="background-image:url(/static/v1/img/slider3.jpg);"></div>
-                <div class="carousel-caption">
-                    <h1 style="color:#f0f0f0;"></h1>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-    </div>
-    
-
-    
-    
-    
-    <div class="section"> 
-        <div class="container container-heading-house">
-          <div class="row"> 
-            <h1>Overview</h1>              
-            <p>Bay Tree Cottage is a pretty, Grade II listed cottage situated in picturesque Sherborne Lane, one of the oldest streets in Lyme Regis. The shops, restaurants, cinema, pubs and the beach are only a short stroll away.</p>
-            <p>Recently refurbished and modernised, the cottage is comfortable and spacious with all modern conveniences. The accommodation comprises of and open plan sitting/dining room leading through to a modern kitchen. Stairs from dining area lead up to twin bedroom to front, double bedroom to back and a spacious modern shower room.</p>
-          </div>
-        </div>
-    </div>
-    
-
-
-        
-    <div class="section"> 
-        <div class="container container-heading-detail">
-          <div class="row"> 
-            <h1>Details &amp; Features</h1>     
-              <div class="details-features">
-                  <table class="table table-condensed">
-
-                      <tbody>
-                          <tr>
-                              <td>Sleeps: <strong class="badge">4</strong></td>
-                              <td>WiFi/TV/DVD</td>
-                          </tr>
-                          <tr>
-                              <td>Bedrooms: <strong class="badge">2</strong></td>
-                              <td>Gas Central Heating</td>
-                          </tr>
-                          <tr>
-                              <td>Showeroom: <strong class="badge">1</strong></td>
-                              <td>Dishwasher/Washing Machine</td>
-                          </tr>
-                          <tr>
-                              <td>Changeover Day: <strong class="badge">Friday</strong></td>
-                              <td>Garden with Furniture &amp; BBQ</td>
-                          </tr>                          
-                          <tr>
-                              <td>No Pets</td>
-                              <td>Bed linen &amp; towels included</td>
-                          </tr>     
-                          <tr>
-                              <td>No Smoking</td>
-                              <td></td>
-                          </tr>                                                 
-                      </tbody>
-                  </table>
-            </div>
-          </div>
-        </div>
-    </div>
-    
-
-
-    
-    
-    
-    
-
-
-    
- <!-- all_content -->
-
+    {% block content %}
+    {% endblock %}
 
 <footer>
+
+    {% editable_loader %}
 <div class="container">
 
 
