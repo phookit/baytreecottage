@@ -250,6 +250,7 @@ INSTALLED_APPS = (
     "mezzanine.forms",
     "mezzanine.galleries",
     "mezzanine.twitter",
+    "phookit.contrib.versionedstaticfiles",
     # "mezzanine.accounts",
     # "mezzanine.mobile",
 )
@@ -314,6 +315,8 @@ OPTIONAL_APPS = (
 ##################
 # LOCAL SETTINGS #
 ##################
+
+STATIC_VERSION = 'v1'
 
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be
