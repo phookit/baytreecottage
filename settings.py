@@ -251,6 +251,7 @@ INSTALLED_APPS = (
     "mezzanine.galleries",
     "mezzanine.twitter",
     "phookit.contrib.versionedstaticfiles",
+    "maplocal",
     # "mezzanine.accounts",
     # "mezzanine.mobile",
 )
