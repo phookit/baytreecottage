@@ -63,6 +63,10 @@ urlpatterns += patterns('',
 
     # url("^$", "mezzanine.blog.views.blog_post_list", name="home"),
 
+    (r'^api/bc/', include('phookit.bookingcalendar.api.urls')),
+    (r'^availability/', include('phookit.bookingcalendar.urls')),
+    (r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
     # MEZZANINE'S URLS
     # ----------------
     # ADD YOUR OWN URLPATTERNS *ABOVE* THE LINE BELOW.

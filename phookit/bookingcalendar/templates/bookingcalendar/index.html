@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load versioned_static staticfiles %}
+
+{% block extra_css %}
+<link href="/static/v1/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+<link href="/static/v1/css/fullcalendar.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/v1/js/jquery-ui.custom.min.js"></script>
+<script src="/static/v1/js/moment.min.js"></script>
+<script src="/static/v1/js/fullcalendar.js"></script>
+<script src="/static/v1/js/lang-all.js"></script>
+<script>
+$(document).ready(function() {
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			defaultDate: '2013-12-01',
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+                        backgroundColor: 'green',
+                        eventSources: [
+                            {
+                                url: '/api/bc/feed/',
+                                rendering: 'background'
+                            }
+                        ]
+		});
+		
+	});
+
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="section"> 
+        <div class="container container-heading-house">
+          <div class="row"> 
+            <h1>Availablility</h1>
+
+            <div id='calendar'></div>
+
+        </div>
+      </div>
+    </div>
+
+
+{% endblock %}
+

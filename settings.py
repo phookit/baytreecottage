@@ -251,7 +251,10 @@ INSTALLED_APPS = (
     "mezzanine.galleries",
     "mezzanine.twitter",
     "phookit.contrib.versionedstaticfiles",
+    "phookit.bookingcalendar",
+    "phookit.bookingcalendar.api",
     "maplocal",
+    "rest_framework",
     # "mezzanine.accounts",
     # "mezzanine.mobile",
 )
