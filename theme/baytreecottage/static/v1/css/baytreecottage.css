@@ -67,6 +67,7 @@ a:focus {
     background-color: #fff;
 }
 
+/*
 .section h2 {
     color: #000;
     padding: 2px 5px 2px 15px;
@@ -78,7 +79,7 @@ a:focus {
 .section-odd h2 {
     background-color: #eeeeee;
 }
-
+*/
 
 .sidebar {
   margin-top: 40px;
@@ -322,16 +323,37 @@ footer .separator {
     margin: 25px 15px 15px 15px;
 }
 
-
+/*
 .container-heading-house {
   background: url('heading-house.png') no-repeat 0px 15px,url('heading-line.png') no-repeat 41px 57px;
 }
 .container-heading-detail {
   background: url('heading-detail.png') no-repeat 0px 15px,url('heading-line.png') no-repeat 41px 57px;
 }
+*/
+
+
+.container p, h1, h2, h3, h4, h5, h6 {
+  padding-left: 50px;
+}
+
+.container h1 {
+  background: url('heading-house.png') no-repeat 0px bottom,url('heading-line.png') no-repeat 35px bottom;
+}
+
+.container h2, 
+           h3, 
+           h4, 
+           .h2, 
+           .h3, 
+           .h4 {
+  background: url('heading-line.png') no-repeat 50px bottom;
+}
+
+
 
 .row {
-  padding-left: 50px;
+  padding-left: 5px;
 }
 
 .badge {  
