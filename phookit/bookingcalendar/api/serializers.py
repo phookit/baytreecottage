@@ -4,16 +4,15 @@ from rest_framework import serializers
 from rest_framework import pagination
 from rest_framework.reverse import reverse
 
-from ..models import CalendarItem
+from ..models import Booking
 
-
-class CalendarItemSerializer(serializers.ModelSerializer):
+class BookingSerializer(serializers.ModelSerializer):
 
     backgroundColor = serializers.SerializerMethodField()
 
     class Meta:
-        model = CalendarItem
-        fields = ('id', 'start', 'end', 'title', 'url', 'status', 'backgroundColor', )
+        model = Booking
+        fields = ('id', 'start', 'end', 'status', 'backgroundColor', )
 
 
     def get_backgroundColor(self, obj):
@@ -23,3 +22,10 @@ class CalendarItemSerializer(serializers.ModelSerializer):
         if obj.status == 'Reserved':
             result = 'blue'
         return result
+
+
+class BookingAdminSerializer(BookingSerializer):
+
+    class Meta:
+        model = Booking
+        fields = ('id', 'start', 'end', 'name', 'email', 'tel', 'info', 'status', 'backgroundColor', )

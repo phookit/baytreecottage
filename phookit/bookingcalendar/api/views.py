@@ -2,8 +2,8 @@ from django.conf import settings
 from django.db.models import Q
 from rest_framework import generics
 from rest_framework import permissions
-from .serializers import CalendarItemSerializer
-from phookit.bookingcalendar.models import CalendarItem
+from .serializers import BookingSerializer, BookingAdminSerializer
+from phookit.bookingcalendar.models import Booking
 
 
 # TODO: Move into permissions.py
@@ -33,19 +33,19 @@ class IsAdminOrReadOnly(permissions.BasePermission):
         return request.user.is_staff
 
 
-class CalendarItemList(generics.ListCreateAPIView):
+class BookingList(generics.ListCreateAPIView):
     '''
     Only admins can create new calendar items
     '''
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           IsAdminOrReadOnly,)
-    serializer_class = CalendarItemSerializer
+    serializer_class = BookingSerializer
 
 
     def get_queryset(self):
         """
         """
-        queryset = CalendarItem.objects.all()
+        queryset = Booking.objects.all()
         start = self.request.QUERY_PARAMS.get('start', None)
         end = self.request.QUERY_PARAMS.get('end', None)
         if start and end:
@@ -55,6 +55,29 @@ class CalendarItemList(generics.ListCreateAPIView):
         return queryset
 
 
-class CalendarItemDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CalendarItem.objects.all()
-    serializer_class = CalendarItemSerializer
+class BookingAdminDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAdminUser,)
+    queryset = Booking.objects.all()
+    serializer_class = BookingAdminSerializer
+
+
+
+class BookingAdminList(generics.ListCreateAPIView):
+    '''
+    Only admins can create new calendar items
+    '''
+    permission_classes = (permissions.IsAdminUser,)
+    serializer_class = BookingAdminSerializer
+
+
+    def get_queryset(self):
+        """
+        """
+        queryset = Booking.objects.all()
+        start = self.request.QUERY_PARAMS.get('start', None)
+        end = self.request.QUERY_PARAMS.get('end', None)
+        if start and end:
+            queryset = queryset.filter(Q(start__gte=start) | Q(end__lte=end))
+        return queryset
+
+

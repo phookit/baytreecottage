@@ -17,12 +17,11 @@ $(document).ready(function() {
 			header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'month,basicWeek,basicDay'
+				right: 'month'
 			},
-			defaultDate: '2013-12-01',
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-                        backgroundColor: 'green',
+                        aspectRatio: 3.0,
+			editable: false,
+			eventLimit: false,
                         eventSources: [
                             {
                                 url: '/api/bc/feed/',
@@ -30,9 +29,7 @@ $(document).ready(function() {
                             }
                         ]
 		});
-		
 	});
-
 </script>
 {% endblock %}
 
@@ -46,6 +43,10 @@ $(document).ready(function() {
 
             <div id='calendar'></div>
 
+            <h1>Price List</h1>
+            {% for p in prices %}
+            <p>{{ p.start }} - {{p.end }} : {{ p.price }}</p>
+            {% endfor %}
         </div>
       </div>
     </div>
