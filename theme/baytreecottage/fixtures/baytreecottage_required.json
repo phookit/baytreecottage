@@ -24,10 +24,10 @@
             "status": 2,
             "_order": 1,
             "parent": null,
-            "description": "Home",
+            "description": "Bay Tree Cottage is a pretty, Grade II listed cottage situated in picturesque Sherborne Lane, one of the oldest streets in Lyme Regis. The shops, restaurants, cinema, pubs and the beach are only a short stroll away.",
             "title": "Overview",
             "titles": "Overview",
-            "content_model": "richtextpage",
+            "content_model": "homepage",
             "in_menus": [1, 2, 3],
             "slug": "/",
             "site": 1
@@ -35,9 +35,41 @@
     },
     {
         "pk": 2,
-        "model": "pages.richtextpage",
+        "model": "baytreecottage.homepage",
         "fields": {
-            "content": "<p>Home Page</p>"
+            "page_ptr_id": 2,
+            "change_over_day": "Friday",
+            "content": "<p>Bay Tree Cottage is a pretty, Grade II listed cottage situated in picturesque Sherborne Lane, one of the oldest streets in Lyme Regis. The shops, restaurants, cinema, pubs and the beach are only a short stroll away.</p><p>Recently refurbished and modernised, the cottage is comfortable and spacious with all modern conveniences. The accommodation comprises of and open plan sitting/dining room leading through to a modern kitchen. Stairs from dining area lead up to twin bedroom to front, double bedroom to back and a spacious modern shower room.</p>"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "baytreecottage.slide",
+        "fields": {
+            "_order": 0,
+            "image": "uploads/slider/slider1.jpg",
+            "text_colour": "#ffffff",
+            "homepage_id": 2
+        }
+    },
+    {
+        "pk": 2,
+        "model": "baytreecottage.slide",
+        "fields": {
+            "_order": 0,
+            "image": "uploads/slider/slider2.jpg",
+            "text_colour": "#ffffff",
+            "homepage_id": 2
+        }
+    },
+    {
+        "pk": 3,
+        "model": "baytreecottage.slide",
+        "fields": {
+            "_order": 0,
+            "image": "uploads/slider/slider3.jpg",
+            "text_colour": "#ffffff",
+            "homepage_id": 2
         }
     },
     {
@@ -136,7 +168,7 @@
         "model": "facilities.image",
         "fields": {
             "title": "Twin Room",
-            "filename": "facilityimages/int_2beds_Qc4jFZA.jpg",
+            "filename": "facilityimages/int_2beds.jpg",
             "section_id": 2,
             "priority": 0
         }
@@ -146,7 +178,7 @@
         "model": "facilities.image",
         "fields": {
             "title": "Lounge area",
-            "filename": "facilityimages/int_livroom_lHHu4p7.jpg",
+            "filename": "facilityimages/int_livroom.jpg",
             "section_id": 1,
             "priority": 0
         }
@@ -175,7 +207,7 @@
         "pk": 5,
         "model": "facilities.image",
         "fields": {
-            "title": "iDining area",
+            "title": "Dining area",
             "filename": "facilityimages/int_dining.jpg",
             "section_id": 1,
             "priority": 0
