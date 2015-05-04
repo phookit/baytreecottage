@@ -1,0 +1,8 @@
+
+Message from {{site}}
+
+From: {{email}}
+Name: {{name}}
+
+{{body}}
+

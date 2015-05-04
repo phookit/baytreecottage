@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="section"> 
+        <div class="container">
+          <div class="row"> 
+
+            <h1>{% trans "Contact Form" %}</h1>
+            <p>{% trans "Use the form below to send us a message." %}</p>
+            <form id="contact-form" action="" method="post">{% csrf_token %}
+              <div>
+                  <label for="id_name">
+                      <span>Name:</span>
+                      <input id="id_name" maxlength="100" name="name" placeholder="Your name (required)" type="text" tabindex="1" required autofocus>
+                  </label>
+              </div>
+              <div>
+                  <label for="id_email">
+                      <span>Email:</span>
+                      <input id="id_email" maxlength="200" name="email" placeholder="Email address (required)" type="email" tabindex="2" required>
+                  </label>
+              </div>
+              <div>
+                  <label>
+                      <span>Your Message:</span>
+                      <textarea id="id_body" name="body" rows="10" placeholder="Enter your message (required)" tabindex="3" required></textarea>
+                  </label>
+              </div>
+              <div>
+                  <button name="submit" type="submit" id="contact-submit">Send Email</button>
+              </div>
+            </form>
+
+        </div>
+      </div>
+    </div>
+      {% endblock %}
+

@@ -64,7 +64,9 @@ urlpatterns += patterns('',
     # url("^$", "mezzanine.blog.views.blog_post_list", name="home"),
 
     (r'^api/bc/', include('phookit.bookingcalendar.api.urls')),
+    # The availability page does not use mezzanine so needs to be here!
     (r'^availability/', include('phookit.bookingcalendar.urls')),
+    (r'^contact/', include('contact_form.urls')),
     (r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # MEZZANINE'S URLS
