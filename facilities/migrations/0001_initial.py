@@ -15,35 +15,31 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FacilitiesPage',
             fields=[
-                ('page_ptr', models.OneToOneField(serialize=False, to='pages.Page', auto_created=True, primary_key=True, parent_link=True)),
+                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, serialize=False, primary_key=True, to='pages.Page')),
                 ('content', mezzanine.core.fields.RichTextField(verbose_name='Content')),
             ],
             options={
                 'verbose_name': 'Facilities page',
-                'verbose_name_plural': 'Facilities pages',
                 'ordering': ('_order',),
+                'verbose_name_plural': 'Facilities pages',
             },
             bases=('pages.page', models.Model),
         ),
         migrations.CreateModel(
             name='Image',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
-                ('_order', mezzanine.core.fields.OrderField(verbose_name='Order', null=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=64)),
                 ('filename', models.FileField(upload_to='facilityimages')),
-                ('description', models.CharField(null=True, blank=True, max_length=512)),
+                ('priority', models.IntegerField(default=0)),
             ],
-            options={
-                'ordering': ('_order',),
-            },
         ),
         migrations.CreateModel(
             name='Section',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
                 ('content', mezzanine.core.fields.RichTextField(verbose_name='Content')),
-                ('_order', mezzanine.core.fields.OrderField(verbose_name='Order', null=True)),
+                ('_order', mezzanine.core.fields.OrderField(null=True, verbose_name='Order')),
                 ('title', models.CharField(max_length=64)),
                 ('facilitiespage', models.ForeignKey(to='facilities.FacilitiesPage', related_name='sections')),
             ],

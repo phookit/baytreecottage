@@ -1,0 +1,243 @@
+[
+    {
+        "pk": 1,
+        "model": "conf.setting",
+        "fields": {
+            "name": "SITE_TITLE",
+            "value": "Bay Tree Cottage",
+            "site_id": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "conf.setting",
+        "fields": {
+            "name": "SITE_TAGLINE",
+            "value": "Lyme regis",
+            "site_id": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 1,
+            "parent": null,
+            "description": "Home",
+            "title": "Overview",
+            "titles": "Overview",
+            "content_model": "richtextpage",
+            "in_menus": [1, 2, 3],
+            "slug": "/",
+            "site": 1
+        }
+    },
+    {
+        "pk": 2,
+        "model": "pages.richtextpage",
+        "fields": {
+            "content": "<p>Home Page</p>"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 1,
+            "parent": null,
+            "description": "Availability",
+            "title": "Availability",
+            "titles": "Availability",
+            "content_model": "richtextpage",
+            "in_menus": [1, 2, 3],
+            "slug": "availability",
+            "site": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "pages.richtextpage",
+        "fields": {
+            "content": "<p>Availability</p>"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 1,
+            "parent": null,
+            "description": "Map and local",
+            "title": "Map & Local",
+            "titles": "Map & Local",
+            "content_model": "maplocal",
+            "in_menus": [1, 2, 3],
+            "slug": "map-local",
+            "site": 1
+        }
+    },
+    {
+        "pk": 4,
+        "model": "maplocal.maplocal",
+        "fields": {
+            "page_ptr_id": 4,
+            "content": "<p>Map local info</p><p></p><p>Goes here</p>"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 1,
+            "parent": null,
+            "description": "Facilities",
+            "title": "Facilities",
+            "titles": "Facilities",
+            "content_model": "facilitiespage",
+            "in_menus": [1, 2, 3],
+            "slug": "facilities",
+            "site": 1
+        }
+    },
+    {
+        "pk": 5,
+        "model": "facilities.facilitiespage",
+        "fields": {
+            "page_ptr_id": 5,
+            "content": "<p>Facilities content</p>"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "facilities.section",
+        "fields": {
+            "content": "<p>Facilities section 1 downstairs</p>",
+            "_order": 0,
+            "title": "Downstairs",
+            "facilitiespage_id": 5
+        }
+    },
+    {
+        "pk": 2,
+        "model": "facilities.section",
+        "fields": {
+            "content": "<p>Facilities section 2 upstairs</p>",
+            "_order": 1,
+            "title": "Upstairs",
+            "facilitiespage_id": 5
+        }
+    },
+    {
+        "pk": 1,
+        "model": "facilities.image",
+        "fields": {
+            "title": "Twin Room",
+            "filename": "facilityimages/int_2beds_Qc4jFZA.jpg",
+            "section_id": 2,
+            "priority": 0
+        }
+    },
+    {
+        "pk": 2,
+        "model": "facilities.image",
+        "fields": {
+            "title": "Lounge area",
+            "filename": "facilityimages/int_livroom_lHHu4p7.jpg",
+            "section_id": 1,
+            "priority": 0
+        }
+    },
+    {
+        "pk": 3,
+        "model": "facilities.image",
+        "fields": {
+            "title": "Kitchen",
+            "filename": "facilityimages/int_kitchen.jpg",
+            "section_id": 1,
+            "priority": 0
+        }
+    },
+    {
+        "pk": 4,
+        "model": "facilities.image",
+        "fields": {
+            "title": "Lounge",
+            "filename": "facilityimages/int_din_sitting.jpg",
+            "section_id": 1,
+            "priority": 0
+        }
+    },
+    {
+        "pk": 5,
+        "model": "facilities.image",
+        "fields": {
+            "title": "iDining area",
+            "filename": "facilityimages/int_dining.jpg",
+            "section_id": 1,
+            "priority": 0
+        }
+    },
+    {
+        "pk": 6,
+        "model": "facilities.image",
+        "fields": {
+            "title": "Shower",
+            "filename": "facilityimages/int_shower.jpg",
+            "section_id": 2,
+            "priority": 0
+        }
+    },
+    {
+        "pk": 1,
+        "model": "bookingcalendar.booking",
+        "fields": {
+            "start": "2015-04-03",
+            "end": "2015-04-10",
+            "name": "Paul",
+            "email": "paulhunt@bullmania.co.uk",
+            "tel": "01234 556789",
+            "info": "",
+            "status": "Booked"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "bookingcalendar.bookingprice",
+        "fields": {
+            "start": "2015-05-02",
+            "end": "2015-05-22",
+            "price": "445.00"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "bookingcalendar.bookingprice",
+        "fields": {
+            "start": "2015-05-23",
+            "end": "2015-05-29",
+            "price": "595.00"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "bookingcalendar.bookingprice",
+        "fields": {
+            "start": "2015-05-30",
+            "end": "2015-06-05",
+            "price": "465.00"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "bookingcalendar.bookingprice",
+        "fields": {
+            "start": "2015-06-06",
+            "end": "2015-06-19",
+            "price": "445.00"
+        }
+    }
+]

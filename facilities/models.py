@@ -21,11 +21,11 @@ class Section(Orderable, RichText):
         return "%s" % self.title
 
 
-class Image(Orderable):
+class Image(models.Model):
     title = models.CharField(max_length=64)
     filename = models.FileField(upload_to='facilityimages')
-    description = models.CharField(max_length=512, blank=True, null=True)
     section = models.ForeignKey(Section, related_name="images")
+    priority = models.IntegerField(default=0)
 
     def __str__(self):
         return "%s" % self.title
