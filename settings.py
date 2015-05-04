@@ -325,7 +325,7 @@ STATIC_VERSION = 'v1'
 
 AUTH_PROFILE_MODULE = 'phookit.bookingcalendar.models.UserProfile'
 
-PAGINATE_BY = 1
+PAGINATE_BY = 52
 
 # Allow any settings to be defined in local_settings.py which should be
 # ignored in your version control system allowing for settings to be
