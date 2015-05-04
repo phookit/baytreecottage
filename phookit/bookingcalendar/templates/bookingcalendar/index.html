@@ -13,23 +13,23 @@
 <script src="/static/v1/js/lang-all.js"></script>
 <script>
 $(document).ready(function() {
-		$('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month'
-			},
-                        aspectRatio: 3.0,
-			editable: false,
-			eventLimit: false,
-                        eventSources: [
-                            {
-                                url: '/api/bc/feed/',
-                                rendering: 'background'
-                            }
-                        ]
-		});
-	});
+  $('#calendar').fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      /*right: 'month'*/
+    },
+    aspectRatio: 2.0,
+    editable: false,
+    eventLimit: false,
+    eventSources: [
+    {
+      url: '/api/bc/feed/',
+      rendering: 'background'
+    }
+    ]
+  });
+});
 </script>
 {% endblock %}
 
@@ -43,14 +43,34 @@ $(document).ready(function() {
 
             <div id='calendar'></div>
 
-            <h1>Price List</h1>
+            <table class="booking-legend">
+                <tr>
+                    <td style="background-color:#deffd6;">Available</td>
+                    <td style="background-color:#d29898;">Booked</td>
+                    <td style="background-color:#b9beff;">Reserved</td>
+                </tr>
+            </table>
+            <h1 class="pricelist">Weekly Pricing</h1>
+            <table class="pricelist-table">
             {% for p in prices %}
-            <p>{{ p.start }} - {{p.end }} : {{ p.price }}</p>
+              <tr><td class="date-cell">{{ p.start }} - {{p.end }}</td><td class="price-cell">&pound;{{ p.price }}</td><tr>
             {% endfor %}
+            </table>
+
+            <div class="pagination">
+            <span class="step-links">
+              {% if prices.has_previous %}
+              <a href="?page={{ prices.previous_page_number }}" title="Earlier booking prices">&laquo;&nbsp;Earlier</a>&nbsp;
+              {% endif %}
+
+              {% if prices.has_next %}
+                &nbsp;<a href="?page={{ prices.next_page_number }}" title="Later booking prices">Next&nbsp;&raquo;</a>
+              {% endif %}
+            </span>
+            </div>
         </div>
       </div>
     </div>
-
 
 {% endblock %}
 

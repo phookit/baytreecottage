@@ -10,6 +10,7 @@ color: #010151;
 /* Global Styles */
 
 html, body {
+  background: url('paper.jpg');
   height: 100%;
 }
 
@@ -171,6 +172,7 @@ a:focus {
 
 /* Footer Styles */
 footer {
+  background: url('paper.jpg');
   margin: 50px 0;
 }
 
@@ -202,6 +204,7 @@ ul, ol {
 }
 
 .navbar-default {
+  background: url('paper.jpg');
   background-color: #fff;
 }
 
@@ -344,6 +347,10 @@ footer .separator {
 .container .sail {
   background: url('heading-boat.png') no-repeat 0px bottom,url('heading-line-yellow.png') no-repeat 35px bottom;
 }
+.container .pricelist {
+  background: url('heading-price.png') no-repeat 0px bottom,url('heading-line-price.png') no-repeat 35px bottom;
+}
+
 
 
 .container h2, 
@@ -422,5 +429,44 @@ footer .separator {
 .img-item-list p {
   padding-left: 50px;
 }
+
+
+.pricelist-table {
+  width: 50%;  
+  border-bottom: 15px solid #ffb3b3;
+}
+
+@media (max-width: 560px) {
+  .pricelist-table {
+    width: 100%;  
+  }
+}
+
+.pricelist-table tr {
+  vertical-align: bottom;
+  border-bottom: 5px solid #ffb3b3;
+  text-align: center;
+}
+
+.pricelist-table .date-cell {
+  padding: 5px 10px 5px 10px;
+}
+.pricelist-table .price-cell {
+  padding: 5px 10px 5px 10px;
+  background-color: #d29898;
+}
+
+/* full calendar */
+.fc-day {
+  background-color: #deffd6;
+}
+.fc-bgevent {
+    opacity: 1.0;
+}
+/* booking legend */
+.booking-legend td {
+    padding: 15px 15px 15px 15px;
+}
+
 
 

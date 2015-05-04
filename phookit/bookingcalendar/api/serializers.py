@@ -16,11 +16,11 @@ class BookingSerializer(serializers.ModelSerializer):
 
 
     def get_backgroundColor(self, obj):
-        result = 'white'
+        result = '#beffaf'
         if obj.status == 'Booked':
-            result = 'red'
+            result = '#d29898'
         if obj.status == 'Reserved':
-            result = 'blue'
+            result = '#b9beff'
         return result
 
 
