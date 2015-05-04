@@ -15,13 +15,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MapLocal',
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, serialize=False, parent_link=True, to='pages.Page', primary_key=True)),
+                ('page_ptr', models.OneToOneField(serialize=False, parent_link=True, primary_key=True, auto_created=True, to='pages.Page')),
                 ('content', mezzanine.core.fields.RichTextField(verbose_name='Content')),
             ],
             options={
-                'verbose_name': 'Map And Local',
                 'verbose_name_plural': 'Map and locals',
                 'ordering': ('_order',),
+                'verbose_name': 'Map And Local',
             },
             bases=('pages.page', models.Model),
         ),

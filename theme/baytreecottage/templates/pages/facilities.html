@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load pages_tags mezzanine_tags %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="/static/v1/blueimp/css/blueimp-gallery.min.css">
+  <link rel="stylesheet" href="/static/v1/blueimp/css/blueimp-gallery-indicator.css">
+{%endblock %}
+
+{% block extra_js %}
+  <script src="/static/v1/blueimp/js/blueimp-helper.js"></script>
+  <script src="/static/v1/blueimp/js/blueimp-gallery.js"></script>
+  <script src="/static/v1/blueimp/js/blueimp-gallery-fullscreen.js"></script>
+  <script src="/static/v1/blueimp/js/blueimp-gallery-indicator.js"></script>
+  <script src="/static/v1/blueimp/js/jquery.blueimp-gallery.min.js"></script>
+{%endblock %}
+
+{% block content %}
+    <div class="section"> 
+        <div class="container">
+          <div class="row"> 
+            {% editable page.facilitiespage.title %}
+            <h1>{{ page.facilitiespage.title }}</h1>
+            {% endeditable %}
+            {% editable page.facilitiespage.content %}
+              {{ page.facilitiespage.content|richtext_filter|safe }}
+            {% endeditable %}
+        </div>
+      </div>
+    </div>
+
+    {% for s in page.facilitiespage.sections.all %}
+    <div class="section"> 
+        <div class="container">
+          <div class="row"> 
+              {% editable s.title %}
+              <h2>{{s.title}}</h2>
+              {% endeditable %}
+              {% editable s.content %}
+                {{ s.content|richtext_filter|safe }}
+              {% endeditable %}
+
+
+              <div class="facilities-imgs">
+              <div id="links">
+              {% for i in s.images.all %}
+              <a href="{{ MEDIA_URL }}{% thumbnail i.filename 800 0 %}" title="{{i.title}}" data-gallery>
+                  <img src="{{ MEDIA_URL }}{% thumbnail i.filename 256 192 %}" alt="{{i.title}}" />
+              </a>    
+              {% endfor %}
+              </div>
+              </div>
+
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+       <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+        <div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
+            <!-- The container for the modal slides -->
+            <div class="slides"></div>
+            <!-- Controls for the borderless lightbox -->
+            <h3 class="title"></h3>
+            <a class="prev">‹</a>
+            <a class="next">›</a>
+            <a class="close">×</a>
+            <a class="play-pause"></a>
+            <ol class="indicator"></ol>
+            <!-- The modal dialog, which will be used to wrap the lightbox content -->
+            <div class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body next"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left prev">
+                                <i class="glyphicon glyphicon-chevron-left"></i>
+                                Previous
+                            </button>
+                            <button type="button" class="btn btn-primary next">
+                                Next
+                                <i class="glyphicon glyphicon-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+{% endblock %}

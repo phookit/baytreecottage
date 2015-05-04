@@ -255,6 +255,7 @@ INSTALLED_APPS = (
     "phookit.bookingcalendar",
     "phookit.bookingcalendar.api",
     "maplocal",
+    "facilities",
     "rest_framework",
     # "mezzanine.accounts",
     # "mezzanine.mobile",

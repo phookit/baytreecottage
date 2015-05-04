@@ -356,7 +356,7 @@ footer .separator {
 }
 
 @media (max-width: 400px) {
-    .container p, table, .details-features {
+    .container p, h2, h3, h4, h5, h6, table, .details-features {
         padding-left: 5px;
     }
 }
@@ -490,5 +490,19 @@ footer .separator {
     padding: 15px 15px 15px 15px;
 }
 
+.facilities-imgs {
+    padding-left: 50px;
+}
+
+.facilities-imgs img {
+  padding: 3px 2px 3px 1px;
+  border: 2px solid #ffb3b3;
+}
+
+@media (max-width: 400px) {
+  .facilities-imgs {
+    padding-left: 5px;
+  }
+}
 
 
