@@ -351,7 +351,7 @@ footer .separator {
 */
 
 
-.container p, h1, h2, h3, h4, h5, h6, .details-features {
+.container p, h1, h2, h3, h4, h5, h6, form, .details-features {
   padding-left: 50px;
 }
 
@@ -365,7 +365,7 @@ footer .separator {
 }
 
 @media (max-width: 400px) {
-    .container p, table, .details-features {
+    .container p, table, form, .details-features {
         padding-left: 5px;
     }
     .container h2, 
@@ -525,5 +525,37 @@ footer .separator {
 }
 .blueimp-gallery-controls > .description {
   display: block;
+}
+
+
+/* contact form */
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form input[type="tel"],
+#contact-form input[type="url"],
+#contact-form textarea {
+  width:100%;
+  box-shadow:inset 0 1px 2px #DDD, 0 1px 0 #FFF;
+  -webkit-box-shadow:inset 0 1px 2px #DDD, 0 1px 0 #FFF;
+  -moz-box-shadow:inset 0 1px 2px #DDD, 0 1px 0 #FFF;
+  border:1px solid #CCC;
+  background:#FFF;
+  margin:0 0 5px;
+  padding:10px;
+  border-radius:5px;
+}
+
+#contact-form button[type="submit"] {
+    cursor:pointer;
+    width:100%;
+    border:none;
+    background:#ffb3b3;
+    background-image:linear-gradient(bottom, #d29898 0%, #ffb3b3 52%);
+    background-image:-moz-linear-gradient(bottom, #d29898 0%, #ffb3b3 52%);
+    background-image:-webkit-linear-gradient(bottom, #d29898 0%, #ffb3b3 52%);
+    color:#FFF;
+    margin:0 0 5px;
+    padding:10px;
+    border-radius:5px;
 }
 
