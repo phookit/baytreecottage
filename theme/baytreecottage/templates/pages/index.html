@@ -18,9 +18,11 @@
             {% for slide in page.homepage.slides.all %}
             <div class="item {% if forloop.first %}active{% endif %}">
                 <div class="fill" style="background-image:url({{MEDIA_URL}}{{slide.image}});"></div>
+                {% if slide.caption %}
                 <div class="carousel-caption">
                     <h1 style="color:{{slide.text_colour}};">{{slide.caption|safe}}</h1>
                 </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
