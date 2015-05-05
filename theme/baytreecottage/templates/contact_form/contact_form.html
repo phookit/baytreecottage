@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n mezzanine_tags pages_tags %}
 
 {% block content %}
     <div class="section"> 
@@ -7,7 +7,7 @@
           <div class="row"> 
 
             <h1>{% trans "Contact Form" %}</h1>
-            <p>{% trans "Use the form below to send us a message." %}</p>
+            <p>Use the form below to send us a message. Alternatively you can call Carol on <a href="tel:{{ settings.ADDRESS_MOBILE_NUMBER }}">{{ settings.ADDRESS_MOBILE_NUMBER }}</a> or <a href="tel:{{ settings.ADDRESS_OTHER_NUMBER }}">{{ settings.ADDRESS_OTHER_NUMBER }}</a></p>
             <form id="contact-form" action="" method="post">{% csrf_token %}
               <div>
                   <label for="id_name">

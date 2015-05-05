@@ -51,17 +51,8 @@
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     
     {% page_menu "pages/menus/dropdown.html" %}
-<!--    
-<ul class="nav navbar-nav navbar-right">
- <li class="active" id="home"><a href="/">Home</a></li>
- <li class="" id="map-and-local"><a href="local">Map &amp; Local</a></li>
- <li class="" id="facilities"><a href="facilities">Facilities</a></li>
- <li class="" id="availability"><a href="availability">Availability &amp; Prices</a></li>
- <li class="" id="contact-us"><a href="contact-us">Contact Us</a></li> 
-</ul>
--->
   </div> 
- </div><!-- container -->
+ </div>
 </nav>
 
     {% block content %}
@@ -71,9 +62,19 @@
 
 
 <footer>
+<address class="text-center">
+    {% if settings.ADDRESS_STREET_1 %}{{ settings.ADDRESS_STREET_1 }}{%endif %}
+    {% if settings.ADDRESS_STREET_2 %}, {{ settings.ADDRESS_STREET_2 }}{%endif %}
+    {% if settings.ADDRESS_AREA %}, {{ settings.ADDRESS_AREA }}{%endif %}
+    {% if settings.ADDRESS_CITY %}, {{ settings.ADDRESS_CITY }}{%endif %}
+    {% if settings.ADDRESS_COUNTRY %}, {{ settings.ADDRESS_COUNTRY }}{%endif %}
+    {% if settings.ADDRESS_POSTCODE %}, {{ settings.ADDRESS_POSTCODE }}{%endif %}
+</address>
 {% page_menu "pages/menus/footer.html" %}
 
 <div class="row">
+
+<!--
 <p class="site-info text-center">
     {% trans "Powered by" %}
     <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
@@ -87,35 +88,10 @@
     <a href="{% url "set_device" "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
     {% endifinstalled %}
 </p>
-</div>
-</div>
-
-<!--
-
-    {% editable_loader %}
-<div class="container">
-
-
-<div class="nav-footer">
-
-<div class="col-lg-3 col-md-6">
-<div class="col-lg-1 col-md-1"><img src="test-index_files/tel.png" /></div>
-<div class="col-lg-2 col-md-5"><p>01420 520375</p></div>
-</div>
-
-<div class="col-lg-3 col-md-6">
-<div class="col-lg-1 col-md-1"><img src="test-index_files/tel.png" /></div>
-<div class="col-lg-2 col-md-5"><p>07796 181882</p></div>
-</div>
-
-<div class="col-lg-3 col-md-6">
-<div class="col-lg-1 col-md-1"><img src="test-index_files/tel.png" /></div>
-<div class="col-lg-2 col-md-5"><p>info@baytreecottage.com</p></div>
-</div>
-
-</div>
-</div>
 -->
+</div>
+</div>
+
 </footer>
 
 

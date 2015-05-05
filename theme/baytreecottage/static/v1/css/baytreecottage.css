@@ -68,20 +68,6 @@ a:focus {
     background-color: #fff;
 }
 
-/*
-.section h2 {
-    color: #000;
-    padding: 2px 5px 2px 15px;
-}
-
-.section-even h2 {
-    background-color: #dddddd;
-}
-.section-odd h2 {
-    background-color: #eeeeee;
-}
-*/
-
 .sidebar {
   margin-top: 40px;
 }
@@ -204,6 +190,7 @@ ul, ol {
 .navbar-default {
   background: url('paper.jpg');
   background-color: #fff;
+  border-bottom: 2px solid #d6d6d6;
 }
 
 .navbar-default .navbar-brand {
@@ -348,7 +335,7 @@ footer .separator {
   height: 80px;
 }
 
-.container p, h1, h2, h3, h4, h5, h6, form, .details-features {
+.container p, h1, h2, h3, h4, h5, h6, form, .details-features, .maplocal-address {
   padding-left: 50px;
 }
 .container ul {
@@ -365,7 +352,7 @@ footer .separator {
 }
 
 @media (max-width: 400px) {
-    .container p, table, form, .details-features {
+    .container p, table, form, .details-features, .maplocal-address {
         padding-left: 5px;
     }
     .container h2, 
