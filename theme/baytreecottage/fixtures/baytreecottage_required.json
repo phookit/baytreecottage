@@ -144,6 +144,54 @@
         }
     },
     {
+        "pk": 6,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 1,
+            "parent": null,
+            "description": "Contact us",
+            "title": "Contact Us",
+            "titles": "Contact Us",
+            "content_model": "link",
+            "in_menus": [1, 2, 3],
+            "slug": "contact",
+            "site": 1
+        }
+    },
+    {
+        "pk": 7,
+        "model": "pages.page",
+        "fields": {
+            "status": 2,
+            "_order": 1,
+            "parent": null,
+            "description": "Terms & Conditions",
+            "title": "Terms & Conditions",
+            "titles": "Contact Us / Terms & Conditions",
+            "content_model": "richtextpage",
+            "parent": 6,
+            "in_menus": [1, 2, 3],
+            "slug": "contact/terms-conditions",
+            "site": 1
+        }
+    },
+    {
+        "pk": 3,
+        "model": "pages.richtextpage",
+        "fields": {
+            "page_ptr_id": 7,
+            "content": "<p><strong>Booking Conditions</strong><br><br>The contact name and person booking must be over 21 years of age and agrees to be responsible for the party occupying the property and is authorised to agree to all conditions of hire on behalf of all members of the party.</p><p>No booking is binding until confirmed in writing by Bay Tree Cottage. When booking please ensure that you check any points of particular interest to your party e.g. parking, distance from facilities, locations, number of steps, traffic noise etc.</p><p>We are unable to accept bookings from all male or female parties of more than three people unless by special arrangement – please call us before booking.</p><p>All bookings are accepted on the clear understanding that the property is taken for holiday purposes only and is not used for any other purposes and must be vacated by the agreed time and date. You will be liable for any costs incurred for unauthorised extension of tenancy.</p><p>The number of people occupying the property must not exceed the number shown on the confirmation or that advertised as maximum on the website. All party members must be named on the booking.  Bay Tree Cottage reserve the right to refuse admission or enter the property and end the tenancy if the numbers exceed as above. A charge will be made for any extra persons.</p><p>Weekly bookings run from Friday to Friday from 4.00 pm on the day of arrival until 10.00 am on the day of departure.</p><p>Bay Tree Cottage is situated in Sherborne Lane, one of Lyme Regis’ quietest streets.   The booking party must respect other residents in Sherborne Lane, keeping noise to a reasonable level.</p><p><strong>Payments</strong></p><p>A 50% deposit of total cost is payable at time of booking and the balance must be paid eight weeks prior to your arrival date.   For bookings made within eight weeks of arrival, full payment must be made immediately.   If the balance payment has not been received eight weeks prior to the arrival date Bay Tree cottage reserve the right, after taking all reasonable steps to contact the holiday party, to re-sell the holiday and the holiday will be treated as a cancellation  and there will be no refund of deposit.</p><p>In addition to the rent a refundable £100 security deposit is requested at time of boking to cover any damages or extra house keeping required. Whilst we do not expect you to clean the cottage, our housekeepers do expect a level of tidiness when they arrive, ie beds stripped, fridge/freezer emptied, surfaces wiped down and rubbish placed in the outside bins.</p><p><strong>Responsibility</strong></p><p>Bay Tree Cottage is responsible for providing holiday accommodation in a clean and tidy condition taking all reasonable steps to ensure that all facilities advertised are provided.</p><p>The hirers of the property must ensure that the property is left in a clean and tidy condition - failure to do so will result in an additional charge.</p><p>The hirers of the property are responsible for the replacement of any article broken or damaged during their occupation of the property and for the repair of any damage done to the property itself (excluding reasonable wear and tear).</p><p><strong>Complaints</strong></p><p>All complaints should be notified to Bay Tree Cottage immediately. We will not entertain a complaint once a property has been vacated. We reserve the right to investigate and resolve any problems during tenancy without refund or compensation.</p><p><strong>Liability</strong></p><p>Bay Tree Cottage does not accept any liability for any disruption of tenancy due to surrounding or neighbouring properties of any sort whatsoever. This is to include building works, impairment of views and noise.</p><p>Bay Tree Cottage does not accept liability or pay any compensation where a property becomes unavailable due to ‘force majeure’.  These events are to include storm or weather damage, criminal damage, break- in, explosion, fire, flood, which causes destruction or damage to the property making the property not satisfactory for letting. Also included are adverse weather conditions, riots, industrial action, civil strife, natural disasters, nuclear disasters, oil spills, war or threat of war, actual or threatened terrorist activity and all similar situations beyond Bay Tree Cottage control.</p><p>If for any reason the property booked becomes unavailable or is deemed unsuitable for letting by Bay Tree Cottage ( damage by previous guests etc), all monies paid will be refunded in full and this is the extent of the liability of Bay Tree Cottage,  no further claims will be acknowledged.<br><br><strong>WiFi</strong></p><p>Bay Tree Cottage cannot guarantee WiFi service in the case of ‘outages’ outside of our control or unforeseen circumstances.</p><p><strong>Pets</strong></p><p>No pets are allowed in Bay Tree Cottage.</p><p><strong>Smoking</strong></p><p>Smoking is completely forbidden in Bay Tree Cottage.</p><p><strong>Lost property</strong></p><p>We can accept no responsibility for items left behind in the property after you have vacated. We will charge a £10.00 admin fee plus the cost of postage in advance to retrieve and return lost property on request. Any unclaimed items of property will be disposed of after 4 weeks.<br><br><strong>Termination of Contract</strong></p><p>If the booking party fail to adhere to any of the conditions set out above, Bay Tree Cottage reserves the right to enter the property and terminate the tenancy.<br><br><strong>Cancellation</strong></p><p>If you have to cancel your holiday for whatever reason you are still liable to pay the full balance owing on the holiday, even if you do not come. In the event of such a cancellation, the balance will fall due immediately. If we manage to re-let the holiday we will refund the balance, minus a £50 administration charge. <br><br><strong>The rental Charge does not include cancellation insurance so please make your own arrangements should you require this. This includes you not being able to get to the cottage due to weather conditions, road conditions or illness.</strong><br><br><strong>Privacy Policy</strong></p><p>Your personal information will not be shared with anyone else. They are solely for the use of Bay Tree Cottage owners. If you choose to book Bay Tree Cottage we will collect the following details from you: <br><br></p><ul><li>Full name and address</li><li>Contact details - email, mobile and landline</li><li>Names of all the people in your party who will be staying at BTC</li><li>Payment details</li></ul>"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "pages.link",
+        "fields": {
+            "page_ptr_id": 6
+        }
+    },
+    {
         "pk": 1,
         "model": "facilities.section",
         "fields": {

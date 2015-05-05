@@ -354,6 +354,9 @@ footer .separator {
 .container p, h1, h2, h3, h4, h5, h6, form, .details-features {
   padding-left: 50px;
 }
+.container ul {
+    margin-left: 50px;
+}
 
 .container h2, 
            h3, 
@@ -377,8 +380,9 @@ footer .separator {
       background: url('heading-line.png') no-repeat 5px bottom;
       padding-left: 5px;
     }
-
-
+    .container ul {
+        margin-left: 5px;
+    }
 }
 
 .container h1 {
