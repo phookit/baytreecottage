@@ -172,8 +172,6 @@ a:focus {
 
 /* Footer Styles */
 footer {
-  background: url('paper.jpg');
-  margin: 50px 0;
 }
 
 /* Responsive Styles */
@@ -318,10 +316,11 @@ ul, ol {
 
 
 footer {
-  background-color: #F8F8F8;
-  border-top: 1px solid #E7E7E7;
+  background-color: #E7E7E7;
+  border-top: 10px solid #d6d6d6;
   margin-top: 15px;
   padding: 15px 0 30px;
+  margin: 50px 0;
 }
 footer .separator {
   opacity: 0.3;
@@ -341,15 +340,13 @@ footer .separator {
     margin: 25px 15px 15px 15px;
 }
 
-/*
-.container-heading-house {
-  background: url('heading-house.png') no-repeat 0px 15px,url('heading-line.png') no-repeat 41px 57px;
+.img-item-list p {
+  padding-left: 50px;
 }
-.container-heading-detail {
-  background: url('heading-detail.png') no-repeat 0px 15px,url('heading-line.png') no-repeat 41px 57px;
-}
-*/
 
+.img-item-list {
+  height: 80px;
+}
 
 .container p, h1, h2, h3, h4, h5, h6, form, .details-features {
   padding-left: 50px;
@@ -383,6 +380,10 @@ footer .separator {
     .container ul {
         margin-left: 5px;
     }
+
+    .container .img-item-list {
+      padding-left: 50px;
+    }
 }
 
 .container h1 {
@@ -415,10 +416,6 @@ footer .separator {
   padding-right: 0px;
   padding-left: 0px;
 }*/
-
-.img-item-list {
-  height: 80px;
-}
 
 .iil-anchor {
   background: url('../img/thingstodo/anchor.png') no-repeat left top;
@@ -462,11 +459,6 @@ footer .separator {
 .iil-workshop {
   background: url('../img/thingstodo/workshop.png') no-repeat left top;
 }
-
-.img-item-list p {
-  padding-left: 50px;
-}
-
 
 .pricelist-table {
   width: 50%;  

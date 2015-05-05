@@ -116,7 +116,8 @@
         "model": "maplocal.maplocal",
         "fields": {
             "page_ptr_id": 4,
-            "content": "<p>Lyme Regis with its famous Cobb of the 'French Lieutenant' fame, its interesting shops, cinema and family beach is the perfect place for a seaside holiday. It is surrounded by beautiful countryside for those keen walkers and being on the Jurassic Coast is famous for its fossil hunting.</p><p>Lyme has a packed schedule of events all year round and plenty of nearby attractions to visit.</p>"
+            "content": "<p>Lyme Regis with its famous Cobb of the 'French Lieutenant' fame, its interesting shops, cinema and family beach is the perfect place for a seaside holiday. It is surrounded by beautiful countryside for those keen walkers and being on the Jurassic Coast is famous for its fossil hunting.</p><p>Lyme has a packed schedule of events all year round and plenty of nearby attractions to visit.</p>",
+            "extra_info": "<p>Click <a href=\"http://www.lymeregis.org/whats_on/events/\" target=\"_blank\" title=\"Events in Lyme regis\">here</a> for a list of current events.</p><p>The regency resort of Sidmouth with its beaches, shops, restaurants and galleries and the coastal village of Beer and Branscombe are all nearby. Or take a look around River Cottage HQ or pay a visit to Hugh Fernley-Whittingstall's restaurant in nearby Axminster.</p><p>Visit the following links to find out about the things to do in Lyme regis.</p><p><strong>Fossils</strong></p><p><a href=\"http://www.dinosaurland.co.uk/\" target=\"_blank\" title=\"Dinosaurland Fossil Museum\">Dinosaurland</a></p><p><a href=\"http://www.lymeregis.org/explore/fossil_hunting/\" target=\"_blank\">Fossil Hunting</a></p><p><a href=\"http://www.lymeregis.ukfossils.co.uk/\" target=\"_blank\">UK Fossils</a></p><p><a href=\"http://www.lymeregisfossilwalks.com/\" target=\"_blank\">Fossil Walks</a></p><p><a href=\"http://www.fossilworkshop.com/index.html\" target=\"_blank\">Fossil Workshop</a></p><p><strong>Walks</strong></p><p><a href=\"http://www.dorsetdorset.co.uk/lyme%20regis%20undercliffe.html\" target=\"_blank\">Under Cliffe</a></p><p><a href=\"http://www.southwestcoastpath.com/diversiondb/24/\" target=\"_blank\">South West Coast Path</a></p><p><a href=\"http://www.lymeregistowncouncil.gov.uk/our-town/leisure-facilities/seafront-gardens\" target=\"_blank\">Seafront Gardens</a></p><p><strong>Mini Golf</strong></p><p><a href=\"http://www.lymeregistowncouncil.gov.uk/our-town/leisure-facilities/mini-golf\" target=\"_blank\">Mini Golf</a></p><p><strong>Fishing</strong></p><p><a href=\"http://www.lymeregis.org/news/fun-family-fishing-159/\" target=\"_blank\">Fun Family Fishing</a></p><p><a href=\"http://www.lymeregis.org/have_fun/boat_trips/\" target=\"_blank\">Boat Trips</a></p><p><a href=\"http://www.charterboats-uk.co.uk/lymebaycharters/\" target=\"_blank\">Boat Charters</a></p><p><a href=\"http://www.lymeregis.org/have_fun/fishing/\" target=\"_blank\">Lyme Regis Fishing</a></p><p><a href=\"http://lymetackle.com/\" target=\"_blank\">Fishing Tackle</a></p><p><strong>Cinema</strong></p><p><a href=\"http://lymeregis.scottcinemas.co.uk/\" target=\"_blank\">Scott Cinema</a></p><p><strong>Museum</strong></p><p><a href=\"http://www.lymeregismuseum.co.uk/\" target=\"_blank\">Lyme Regis Museum</a></p><p><strong>Marine/Aquarium</strong></p><p><a href=\"http://www.lymeregismarineaquarium.co.uk/\" target=\"_blank\">Lyme Regis Marine Aquarium</a></p><p><strong>Theatre</strong></p><p><a href=\"http://www.marinetheatre.com/\" target=\"_blank\">Marine Theatre</a></p><p><strong>Mill</strong></p><p><a href=\"http://www.townmill.org.uk/\" target=\"_blank\">Town Mill</a></p>"
         }
     },
     {
@@ -140,7 +141,7 @@
         "model": "facilities.facilitiespage",
         "fields": {
             "page_ptr_id": 5,
-            "content": "<p>Facilities content</p>"
+            "content": "<p>The cottage comes complete with most things you need for an enjoyable and comfortable stay.</p>"
         }
     },
     {
@@ -195,7 +196,7 @@
         "pk": 1,
         "model": "facilities.section",
         "fields": {
-            "content": "<p>Facilities section 1 downstairs</p>",
+            "content": "<p>Small entrance hall with coat hooks, shoe rack and large storage cupboard.</p><p>Open plan sitting/dining room with TV/DVD and Wifi.</p><p>The new contemporary design kitchen has an electric oven with gas hob and extractor, fridge with small freezer compartment, dishwasher, washer-drier, microwave and toaster.</p><p>The garden is accessed from kitchen with steps leading up to small seating area with garden furniture and BBQ.</p>",
             "_order": 0,
             "title": "Downstairs",
             "facilitiespage_id": 5
@@ -205,12 +206,34 @@
         "pk": 2,
         "model": "facilities.section",
         "fields": {
-            "content": "<p>Facilities section 2 upstairs</p>",
+            "content": "<p>The twin bedroom is at the front of the property looking out onto the Sherborne Lane. It has a wardrobe and bedside table.</p><p>The double room has views overlooking the garden to the back of the property. It has a wardrobe, chest of drawers, two bedside tables and small recessed cupboard.</p><p>The shower room has contemporary shower suite with sink, toilet and wall heater.</p>",
             "_order": 1,
             "title": "Upstairs",
             "facilitiespage_id": 5
         }
     },
+    {
+        "pk": 3,
+        "model": "facilities.section",
+        "fields": {
+            "content": "<p>As the cottage is in a pedestrian lane the easiest way of unloading luggage is to park at the top of the lane and unload your bags. There is a small trolley in the hall cupboard to help with any heavy bags. To Load bags back into your car when leaving, parking at the bottom of the lane is best!</p><p>We recommend parking in Holmbush carpark, a five minute walk from the cottage up Pound Street. Parking costs £2 per day.</p>",
+            "_order": 2,
+            "title": "Parking/Unloading",
+            "facilitiespage_id": 5
+        }
+    },
+    {
+        "pk": 4,
+        "model": "facilities.section",
+        "fields": {
+            "content": "<p>Bed linen, towels and gas/electricity are included. Beach towels are not included so please bring your own.</p>",
+            "_order": 3,
+            "title": "What's Included",
+            "facilitiespage_id": 5
+        }
+    },
+
+
     {
         "pk": 1,
         "model": "facilities.image",
