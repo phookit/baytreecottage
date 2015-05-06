@@ -11,21 +11,23 @@
 <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
 <link rel="shortcut icon" href="/static/v1/img/favicon.ico">
 
+{% compress css %}
 <link href="/static/v1/css/css.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/static/v1/css/bootstrap.css">
 <link rel="stylesheet" href="/static/v1/css/font-awesome.css">
 {% block extra_css %}{%endblock %}
 <link rel="stylesheet" href="/static/v1/css/baytreecottage.css">
+{% endcompress %}
 
+{% compress js %}
 <script src="/static/v1/js/jquery.js"></script>
 <script src="/static/v1/js/bootstrap.js"></script>
 <script src="/static/v1/js/bootstrap-extras.js"></script>
 <script src="/static/v1/js/baytreecottage.js"></script>
 
 {% block extra_js %}{%endblock %}
-{% include "includes/footer_scripts.html" %}
-<script>
-</script>
+
+{% endcompress %}
 
 <!--[if lt IE 9]>
 <script src="/static/js/html5shiv.js"></script>
@@ -94,6 +96,6 @@
 
 </footer>
 
-
+{% include "includes/footer_scripts.html" %}
 
 </body></html>
