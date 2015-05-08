@@ -1,3 +1,3 @@
 # baytreecottage
 
-Website for Lyme regis Holiday Cottage http://lymeregisholidaycottage.com/
+Website for Lyme Regis Holiday Cottage http://lymeregisholidaycottage.com/
