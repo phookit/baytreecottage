@@ -26,6 +26,11 @@ class BookingSerializer(serializers.ModelSerializer):
 
 class BookingAdminSerializer(BookingSerializer):
 
+    title = serializers.SerializerMethodField()
+
     class Meta:
         model = Booking
-        fields = ('id', 'start', 'end', 'name', 'email', 'tel', 'info', 'status', 'backgroundColor', )
+        fields = ('id', 'start', 'end', 'name', 'email', 'tel', 'info', 'status', 'backgroundColor', 'title', )
+
+    def get_title(self, obj):
+        return "%s : %s" % (obj.name, obj.email)

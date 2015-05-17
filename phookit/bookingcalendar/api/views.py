@@ -49,8 +49,6 @@ class BookingList(generics.ListCreateAPIView):
         start = self.request.QUERY_PARAMS.get('start', None)
         end = self.request.QUERY_PARAMS.get('end', None)
         if start and end:
-            #queryset = queryset.filter(calendaritem__start_day>=start).filter(calendaritem__end_day<=end)
-            #queryset = queryset.filter(start__gte=start).filter(end__lte=end)
             queryset = queryset.filter(Q(start__gte=start) | Q(end__lte=end))
         return queryset
 
