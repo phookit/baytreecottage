@@ -18,6 +18,7 @@
 {% block extra_css %}
 <link href="/static/v1/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
 <link href="/static/v1/css/fullcalendar.css" rel="stylesheet" type="text/css">
+<link href="/static/v1/css/booking_form.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block extra_js %}
@@ -38,28 +39,58 @@ var bookings = {
     var s = "csrfmiddlewaretoken="+$.cookie('csrftoken')+"&_content_type=application%2Fjson&_content=";
     return s + encodeURIComponent(r);
   },
+  mkput: function(data) {
+    var r = JSON.stringify(data, function (key, value) {
+      return value;
+    });
+    var s = "csrfmiddlewaretoken="+$.cookie('csrftoken')+"&_method=PUT&_content_type=application%2Fjson&_content=";
+    return s + encodeURIComponent(r);
+  },
+
   upload: function(data) {
     dat = bookings.mkdata(data);
     $.ajax({
       url: "/api/bc/admin/",
       type: "POST",
       data: dat,
-      success: function() {
+      success: function(data, textStatus, xhr) {
 
-        $('#eventInfoErros').append('<p>Success</p>');
         var caldata = {
+          id: data['id'],
           title: data['name'] + " : " + data['email'],
           editable: false,
           start: data['start'],
-          end: data['end']
+          end: data['end'],
+          name: data['name'],
+          email: data['email'],
+          tel: data['tel'],
+          info: data['info'],
+          status: data['status']
         };
-        $('#calendar').fullCalendar('renderEvent', caldata, true);
+        $('#calendar').fullCalendar('refetchEvents');
         $('#calendar').fullCalendar('unselect');
         $('#eventInfoModal').modal('hide');
       },
-      error: function(jqXHR, textStatus, errorThrown) {
-        alert("ERROR:"+textStatus+" err:"+errorThrown);
-        $('#eventInfoErrors').append('<p>Failed</p>');
+      error: function(xhr, textStatus, errorThrown) {
+        alert(xhr.status + ": " + xhr.responseText + " ERROR:"+textStatus+" err:"+errorThrown);
+        $('#eventInfoStatus').append('<p>Failed</p>');
+      }
+    });
+  },
+  update: function(data, event) {
+    dat = bookings.mkput(data);
+    $.ajax({
+      url: "/api/bc/admin/"+event.id+"/",
+      type: "POST",
+      data: dat,
+      success: function() {
+        $('#calendar').fullCalendar('updateEvent', event);
+        $('#calendar').fullCalendar('unselect');
+        $('#eventInfoModal').modal('hide');
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        alert(xhr.status + ": " + xhr.responseText + " ERROR:"+textStatus+" err:"+errorThrown);
+        $('#eventInfoStatus').append('<p>Failed</p>');
       }
     });
   }
@@ -82,7 +113,15 @@ $(document).ready(function() {
         dateFormat: "yy-mm-dd"
       });
       $("#endDateInput").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "yy-mm-dd",
+        onClose: function(dateText, inst) {
+          var s = moment( $("#startDateInput").datepicker("getDate") );
+          var e = moment(dateText);
+          if( e <= s ) {
+            $("#endDateInput").addClass("invalidPattern");
+          }
+           
+        }
       });
       $("#startDateInput").datepicker( "setDate", start.format("YYYY-MM-DD"));
       $("#endDateInput").datepicker( "setDate", end.format("YYYY-MM-DD"));
@@ -94,9 +133,9 @@ $(document).ready(function() {
         return ($(this).text() == 'Booked');
       }).prop('selected', true); 
 
+      $("#eventInfoButton").text('Add');
       $("#eventInfoButton").off('click');
       $("#eventInfoButton").click(function() {
-        console.log("CLICK");      
         /* validate the form */
         var s = moment( $("#startDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
         var e = moment( $("#endDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
@@ -105,34 +144,6 @@ $(document).ready(function() {
         var tel = $("#telInput").val();
         var info = $("#infoInput").val();
         var status = $("#statusInput").val();
-      
-        $('.error').hide();
-        if (s == "") {
-          $("label#startdate_error").show();
-          $("input#startDateInput").focus();
-          return false;
-        }
-        if (e == "") {
-          $("label#enddate_error").show();
-          $("input#endDateInput").focus();
-          return false;
-        }
-        if (n == "") {
-          $("label#name_error").show();
-          $("input#nameInput").focus();
-          return false;
-        }
-        if (email == "") {
-          $("label#email_error").show();
-          $("input#emailInput").focus();
-          return false;
-        }
-        if (tel == "") {
-          $("label#tel_error").show();
-          $("input#telInput").focus();
-          return false;
-        }
-
         var data = {
           start: s,
           end: e,
@@ -145,7 +156,8 @@ $(document).ready(function() {
         bookings.upload(data);
         return false;
       });
-      $('.error').hide();
+      $("#eventInfoStatus").empty();
+      $("#eventInfoModal h4.modal-title").text('Add New Booking');
       $("#eventInfoModal").modal('show');
     },
     eventClick: function(event) {
@@ -165,7 +177,43 @@ $(document).ready(function() {
         return ($(this).text() == event.status);
       }).prop('selected', true); 
 
+      $("#eventInfoButton").text('Update');
+      $("#eventInfoButton").off('click');
+      $("#eventInfoButton").click(function() {
+        /* validate the form */
+        var s = moment( $("#startDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
+        var e = moment( $("#endDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
+        var n = $("#nameInput").val();
+        var email = $("#emailInput").val();
+        var tel = $("#telInput").val();
+        var info = $("#infoInput").val();
+        var status = $("#statusInput").val();
+        var data = {
+          start: s,
+          end: e,
+          name: n,
+          email: email,
+          tel: tel,
+          info: info,
+          status: status
+        };
+        event.title = n + " : " + email;
+        event.start = s;
+        event.end = e;
+        event.name = n;
+        event.email = email;
+        event.tel = tel;
+        event.info = info;
+        event.status = status;
+
+        /*var event_id = $("#eventInfoModal").data('event_id');*/
+        bookings.update(data, event);
+        return false;
+      });
+      $("#eventInfoStatus").empty();
+
       $("#eventInfoModal").data('event_id', event.id);
+      $("#eventInfoModal h4.modal-title").text('Booking');
       $("#eventInfoModal").modal('show');
     },
     eventSources: [
@@ -212,38 +260,35 @@ $(document).ready(function() {
                           <h4 class="modal-title">Booking Info</h4>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form class="booking_form", name="booking_form">
                                 <ul>
                                     <li>
                                     <label for="startDateInput">Start Date</label>
-                                    <input type="text" name="startdate" id="startDateInput" />
-                                    <label class="error" for="startDateInput" id="startdate_error">This field is required.</label>
+                                    <input type="text" name="startdate" id="startDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
                                     </li>
                                     <li>
                                     <label for="endDateInput">End Date</label>
-                                    <input type="text" name="enddate" id="endDateInput" />
-                                    <label class="error" for="endDateInput" id="enddate_error">This field is required.</label>
+                                    <input type="text" name="enddate" id="endDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
                                     </li>
                                     <li>
                                     <label for="nameInput">Name</label>
-                                    <input type="text" name="name" id="nameInput" />
-                                    <label class="error" for="nameInput" id="name_error">This field is required.</label>
+                                    <input type="text" name="name" id="nameInput" placeholder="Your Name" required  />
                                     </li>
                                     <li>
                                     <label for="emailInput">Email</label>
-                                    <input type="text" name="email" id="emailInput" />
-                                    <label class="error" for="emailInput" id="email_error">This field is required.</label>
+                                    <input type="email" name="email" id="emailInput" placeholder="email@example.com" required  />
+                                    <span class="form_hint">Proper format "name@something.com"</span>
                                     </li>
                                     <li>
                                     <label for="telInput">Tel</label>
-                                    <input type="text" name="tel" id="telInput" />
-                                    <label class="error" for="telInput" id="tel_error">This field is required.</label>
+                                    <input type="text" name="tel" id="telInput" required pattern="[0-9 -]{7,32}" />
                                     </li>
                                     <li>
                                     <label for="infoInput">Info</label>
                                     <textarea name="info" id="infoInput" cols="40" rows="6"></textarea>
                                     </li>
                                     <li>
+                                    <label for="StatusInput">Status</label>
                                     <select name="statusInput" id="statusInput">
                                         <option value="Available">Available</option>
                                         <option value="Booked">Booked</option>
@@ -254,7 +299,7 @@ $(document).ready(function() {
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <div id="eventInfoErrors"></div>
+                            <div id="eventInfoStatus"></div>
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                           <button id="eventInfoButton" type="button" class="btn btn-primary">Update</button>
                         </div>
