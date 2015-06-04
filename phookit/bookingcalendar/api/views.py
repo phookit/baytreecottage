@@ -2,8 +2,8 @@ from django.conf import settings
 from django.db.models import Q
 from rest_framework import generics
 from rest_framework import permissions
-from .serializers import BookingSerializer, BookingAdminSerializer
-from phookit.bookingcalendar.models import Booking
+from .serializers import BookingSerializer, BookingAdminSerializer, BookingPriceAdminSerializer
+from phookit.bookingcalendar.models import Booking, BookingPrice
 
 
 # TODO: Move into permissions.py
@@ -59,7 +59,6 @@ class BookingAdminDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BookingAdminSerializer
 
 
-
 class BookingAdminList(generics.ListCreateAPIView):
     '''
     Only admins can create new calendar items
@@ -76,6 +75,33 @@ class BookingAdminList(generics.ListCreateAPIView):
         end = self.request.QUERY_PARAMS.get('end', None)
         if start and end:
             queryset = queryset.filter(Q(start__gte=start) | Q(end__lte=end))
+        return queryset
+
+
+class BookingPriceAdminDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAdminUser,)
+    queryset = BookingPrice.objects.all()
+    serializer_class = BookingPriceAdminSerializer
+
+
+class BookingPriceAdminList(generics.ListCreateAPIView):
+    '''
+    Only admins can create new calendar items
+    '''
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsAdminOrReadOnly,)
+    serializer_class = BookingPriceAdminSerializer
+
+
+    def get_queryset(self):
+        """
+        """
+        queryset = BookingPrice.objects.all()
+        last = self.request.QUERY_PARAMS.get('last', None)
+        # if last is not given we'll return all items
+        if last:
+            # fetch the latest entry only
+            queryset = [queryset.order_by('-end')[0:1].get()]
         return queryset
 
 

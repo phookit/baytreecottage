@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework import pagination
 from rest_framework.reverse import reverse
 
-from ..models import Booking
+from ..models import Booking, BookingPrice
 
 class BookingSerializer(serializers.ModelSerializer):
 
@@ -34,3 +34,12 @@ class BookingAdminSerializer(BookingSerializer):
 
     def get_title(self, obj):
         return "%s : %s" % (obj.name, obj.email)
+
+
+class BookingPriceAdminSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BookingPrice
+        fields = ('id', 'start', 'end', 'price',)
+
+

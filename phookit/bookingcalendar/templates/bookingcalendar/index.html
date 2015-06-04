@@ -32,135 +32,163 @@
 {% if user.is_staff %}
 
 var bookings = {
-  mkdata: function(data) {
-    var r = JSON.stringify(data, function (key, value) {
-      return value;
-    });
-    var s = "csrfmiddlewaretoken="+$.cookie('csrftoken')+"&_content_type=application%2Fjson&_content=";
-    return s + encodeURIComponent(r);
+  api_root_feed: "/api/bc/feed/",  
+  api_root_admin: "/api/bc/admin/",
+  api_root_admin_price: "/api/bc/admin/price/",
+  mkRequestPOST: function(data, args) {
+    var result = "csrfmiddlewaretoken="+$.cookie('csrftoken')+"&_content_type=application%2Fjson";
+    if( data ) {
+      var r = JSON.stringify(data, function (key, value) {
+        return value;
+      });
+      result = result + "&_content=" + encodeURIComponent(r);
+    }
+    if(args) {
+      var first = true;
+      $.each(args, function (k, v) {
+        var sep = "&";      
+        if(first) {
+          sep = "?";
+          first = false;
+        }
+        result = result + sep + k + "=" + v;
+      });
+    }
+    return result;
   },
-  mkput: function(data) {
-    var r = JSON.stringify(data, function (key, value) {
-      return value;
-    });
-    var s = "csrfmiddlewaretoken="+$.cookie('csrftoken')+"&_method=PUT&_content_type=application%2Fjson&_content=";
-    return s + encodeURIComponent(r);
+  mkRequestPUT: function(data) {
+    return "_method=PUT&" + bookings.mkRequestPOST(data);         
   },
-
-  upload: function(data) {
-    dat = bookings.mkdata(data);
+  mkApiBookingData: function() {
+    return {
+      start: moment( $("#startDateInput").datepicker("getDate") ).format("YYYY-MM-DD"),
+      end: moment( $("#endDateInput").datepicker("getDate") ).format("YYYY-MM-DD"),
+      name: $("#nameInput").val(),
+      email: $("#emailInput").val(),
+      tel: $("#telInput").val(),
+      info: $("#infoInput").val(),
+      status: $("#statusInput").val()
+    };
+  },
+  mkApiBookingPriceData: function() {
+    return {
+      start: moment( $("#bpStartDateInput").datepicker("getDate") ).format("YYYY-MM-DD"),
+      end: moment( $("#bpEndDateInput").datepicker("getDate") ).format("YYYY-MM-DD"),
+      price: $("#bpPriceInput").val()
+    };
+  },
+  ajax_error: function(xhr, textStatus, errorThrown) {
+    if(xhr.status) {
+      alert(xhr.status + ": " + xhr.responseText + " TStatus:"+textStatus+" error:"+errorThrown);
+    }
+    else {
+      alert("Could not connect to server. Please try again later");  
+    }
+  },
+  api_booking_upload: function() {
+    var data = bookings.mkApiBookingData();              
     $.ajax({
-      url: "/api/bc/admin/",
+      url: bookings.api_root_admin,
       type: "POST",
-      data: dat,
+      data: bookings.mkRequestPOST(data),
       success: function(data, textStatus, xhr) {
-
-        var caldata = {
-          id: data['id'],
-          title: data['name'] + " : " + data['email'],
-          editable: false,
-          start: data['start'],
-          end: data['end'],
-          name: data['name'],
-          email: data['email'],
-          tel: data['tel'],
-          info: data['info'],
-          status: data['status']
-        };
         $('#calendar').fullCalendar('refetchEvents');
         $('#calendar').fullCalendar('unselect');
         $('#eventInfoModal').modal('hide');
       },
       error: function(xhr, textStatus, errorThrown) {
-        alert(xhr.status + ": " + xhr.responseText + " ERROR:"+textStatus+" err:"+errorThrown);
+        bookings.ajax_error(xhr, textStatus, errorThrown);
+        $("#eventInfoStatus").empty();
         $('#eventInfoStatus').append('<p>Failed</p>');
       }
     });
   },
-  update: function(data, event) {
-    dat = bookings.mkput(data);
+  api_booking_update: function(event) {
+    var data = bookings.mkApiBookingData();              
     $.ajax({
-      url: "/api/bc/admin/"+event.id+"/",
+      url: bookings.api_root_admin+event.id+"/",
       type: "POST",
-      data: dat,
-      success: function() {
-        $('#calendar').fullCalendar('updateEvent', event);
+      data: bookings.mkRequestPUT(data),
+      success: function(data, textStatus, xhr) {
+        $('#calendar').fullCalendar('refetchEvents');
         $('#calendar').fullCalendar('unselect');
         $('#eventInfoModal').modal('hide');
       },
       error: function(xhr, textStatus, errorThrown) {
-        alert(xhr.status + ": " + xhr.responseText + " ERROR:"+textStatus+" err:"+errorThrown);
+        bookings.ajax_error(xhr, textStatus, errorThrown);
+        $("#eventInfoStatus").empty();
         $('#eventInfoStatus').append('<p>Failed</p>');
       }
     });
-  }
-}
+  },
+  api_booking_price_upload: function() {
+    var data = bookings.mkApiBookingPriceData();              
+    $.ajax({
+      url: bookings.api_root_admin_price,
+      type: "POST",
+      data: bookings.mkRequestPOST(data),
+      success: function(data, textStatus, xhr) {
+        /*
+            <table class="pricelist-table">
+            <tr><td class="date-cell">{{ p.start }} - {{p.end }}</td><td class="price-cell">&pound;{{ p.price }}</td><tr>
+         */  
+        
+        var s = moment( $("#bpStartDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
+        var e = moment( $("#bpEndDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
+        var p = $("#bpPriceInput").val();
 
+        $('.pricelist-table').append("<tr><td class=\"date-cell\">" + s + " - " + e + "</td><td class=\"price-cell\">&pound;"+p+"</td><tr>");
 
-$(document).ready(function() {
-  $('#calendar').fullCalendar({
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-    },
-    aspectRatio: 2.0,
-    eventLimit: false,
-    editable: true,
-    selectable: true,
-    selectHelper: false,
-    select: function(start, end) {
-      $("#startDateInput").datepicker({
-        dateFormat: "yy-mm-dd"
-      });
-      $("#endDateInput").datepicker({
-        dateFormat: "yy-mm-dd",
-        onClose: function(dateText, inst) {
-          var s = moment( $("#startDateInput").datepicker("getDate") );
-          var e = moment(dateText);
-          if( e <= s ) {
-            $("#endDateInput").addClass("invalidPattern");
-          }
-           
+        $('#bpModal').modal('hide');
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        bookings.ajax_error(xhr, textStatus, errorThrown);
+      }
+    });
+  },
+
+  add_booking: function(start, end) {
+    $("#eventInfoModal h4.modal-title").text('Add New Booking');
+    $("#eventInfoButton").text('Add');
+    $("#eventInfoStatus").empty();
+    /* init the form by clearing any previous values.
+     * Use the start and end dates from the calendar selection */
+    $("#startDateInput").datepicker({
+      dateFormat: "yy-mm-dd"
+    });
+    $("#endDateInput").datepicker({
+      dateFormat: "yy-mm-dd",
+      onClose: function(dateText, inst) {
+        var s = moment( $("#startDateInput").datepicker("getDate") );
+        var e = moment(dateText);
+        if( e <= s ) {
+          $("#endDateInput").addClass("invalidPattern");
         }
-      });
-      $("#startDateInput").datepicker( "setDate", start.format("YYYY-MM-DD"));
-      $("#endDateInput").datepicker( "setDate", end.format("YYYY-MM-DD"));
-      $("#nameInput").val('');
-      $("#emailInput").val('');
-      $("#telInput").val('');
-      $("#infoInput").val('');
-      $('[name=statusInput] option').filter(function() { 
-        return ($(this).text() == 'Booked');
-      }).prop('selected', true); 
+      }
+    });
+    $("#startDateInput").datepicker( "setDate", start.format("YYYY-MM-DD"));
+    $("#endDateInput").datepicker( "setDate", end.format("YYYY-MM-DD"));
+    $("#nameInput").val('');
+    $("#emailInput").val('');
+    $("#telInput").val('');
+    $("#infoInput").val('');
+    $('[name=statusInput] option').filter(function() { 
+      return ($(this).text() == 'Booked');
+    }).prop('selected', true); 
 
-      $("#eventInfoButton").text('Add');
-      $("#eventInfoButton").off('click');
-      $("#eventInfoButton").click(function() {
-        /* validate the form */
-        var s = moment( $("#startDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
-        var e = moment( $("#endDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
-        var n = $("#nameInput").val();
-        var email = $("#emailInput").val();
-        var tel = $("#telInput").val();
-        var info = $("#infoInput").val();
-        var status = $("#statusInput").val();
-        var data = {
-          start: s,
-          end: e,
-          name: n,
-          email: email,
-          tel: tel,
-          info: info,
-          status: status
-        };
-        bookings.upload(data);
-        return false;
-      });
-      $("#eventInfoStatus").empty();
-      $("#eventInfoModal h4.modal-title").text('Add New Booking');
-      $("#eventInfoModal").modal('show');
-    },
-    eventClick: function(event) {
+    /* remove any other click handler and add our update click event handler */
+    $("#eventInfoButton").off('click');
+    $("#eventInfoButton").click(function() {
+      bookings.api_booking_upload();
+      return false;
+    });
+    $("#eventInfoModal").modal('show');
+  },
+  update_booking: function(event) {
+      /* init dialog text */              
+      $("#eventInfoModal h4.modal-title").text('Booking');
+      $("#eventInfoButton").text('Update');
+      /* init the form with the selected event data */              
       $("#startDateInput").datepicker({
         dateFormat: "yy-mm-dd"
       });
@@ -176,51 +204,68 @@ $(document).ready(function() {
       $('[name=statusInput] option').filter(function() { 
         return ($(this).text() == event.status);
       }).prop('selected', true); 
-
-      $("#eventInfoButton").text('Update');
+      /* remove any other click handler and add our update click event handler */
       $("#eventInfoButton").off('click');
       $("#eventInfoButton").click(function() {
-        /* validate the form */
-        var s = moment( $("#startDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
-        var e = moment( $("#endDateInput").datepicker("getDate") ).format("YYYY-MM-DD");
-        var n = $("#nameInput").val();
-        var email = $("#emailInput").val();
-        var tel = $("#telInput").val();
-        var info = $("#infoInput").val();
-        var status = $("#statusInput").val();
-        var data = {
-          start: s,
-          end: e,
-          name: n,
-          email: email,
-          tel: tel,
-          info: info,
-          status: status
-        };
-        event.title = n + " : " + email;
-        event.start = s;
-        event.end = e;
-        event.name = n;
-        event.email = email;
-        event.tel = tel;
-        event.info = info;
-        event.status = status;
-
-        /*var event_id = $("#eventInfoModal").data('event_id');*/
-        bookings.update(data, event);
+        bookings.api_booking_update(event);
         return false;
       });
-      $("#eventInfoStatus").empty();
-
-      $("#eventInfoModal").data('event_id', event.id);
-      $("#eventInfoModal h4.modal-title").text('Booking');
       $("#eventInfoModal").modal('show');
+  }
+}
+
+
+$(document).ready(function() {
+  $('#calendar').fullCalendar({
+    header: {
+      left: 'prev,next today',
+      center: 'title',
     },
-    eventSources: [
-    {
-      url: '/api/bc/admin/',
-    }
-    ]
+    aspectRatio: 2.0,
+    eventLimit: false,
+    editable: true,
+    selectable: true,
+    selectHelper: false,
+    select: bookings.add_booking,
+    eventClick: bookings.update_booking,
+    eventSources: [{
+      url: bookings.api_root_admin
+    }]
+  });
+
+  $(".staff-add-price").click(function(){
+    $("#bpModal h4.modal-title").text('Add Price');
+    $("#addPriceButton").text('Save');
+
+    $("#bpStartDateInput").datepicker({
+      dateFormat: "yy-mm-dd"
+    });
+    $("#bpEndDateInput").datepicker({
+      dateFormat: "yy-mm-dd"
+    });
+    $("#bpStartDateInput").datepicker( "setDate", moment().format("YYYY-MM-DD"));
+    $("#bpEndDateInput").datepicker( "setDate", moment().add(1, 'months').format("YYYY-MM-DD"));
+    $("#bpPriceInput").val('');
+
+    /* fetch the start date from server... */  
+    $.ajax({
+      url: "/api/bc/admin/price/",
+      type: "GET",
+      data: {last: true},
+      success: function(data, textStatus, xhr) {
+        var end_date = moment(data[0].end);
+        $("#bpStartDateInput").datepicker( "setDate", end_date.add(1, 'days').format("YYYY-MM-DD"));
+        $("#bpEndDateInput").datepicker( "setDate", end_date.add(1, 'months').format("YYYY-MM-DD"));
+        $("#bpModal").modal('show');
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        alert(xhr.status + ": " + xhr.responseText + " ERROR:"+textStatus+" err:"+errorThrown);
+      }
+    });
+  });
+  $("#addPriceButton").click(function() {
+    /* save start, end dates and price */
+    bookings.api_booking_price_upload();
   });
 });
 
@@ -237,7 +282,7 @@ $(document).ready(function() {
     eventLimit: false,
     eventSources: [
     {
-      url: '/api/bc/feed/',
+      url: "/api/bc/feed/",
       rendering: 'background'
     }
     ]
@@ -259,50 +304,49 @@ $(document).ready(function() {
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           <h4 class="modal-title">Booking Info</h4>
                         </div>
-                        <div class="modal-body">
-                            <form class="booking_form", name="booking_form">
-                                <ul>
-                                    <li>
-                                    <label for="startDateInput">Start Date</label>
-                                    <input type="text" name="startdate" id="startDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
-                                    </li>
-                                    <li>
-                                    <label for="endDateInput">End Date</label>
-                                    <input type="text" name="enddate" id="endDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
-                                    </li>
-                                    <li>
-                                    <label for="nameInput">Name</label>
-                                    <input type="text" name="name" id="nameInput" placeholder="Your Name" required  />
-                                    </li>
-                                    <li>
-                                    <label for="emailInput">Email</label>
-                                    <input type="email" name="email" id="emailInput" placeholder="email@example.com" required  />
-                                    <span class="form_hint">Proper format "name@something.com"</span>
-                                    </li>
-                                    <li>
-                                    <label for="telInput">Tel</label>
-                                    <input type="text" name="tel" id="telInput" required pattern="[0-9 -]{7,32}" />
-                                    </li>
-                                    <li>
-                                    <label for="infoInput">Info</label>
-                                    <textarea name="info" id="infoInput" cols="40" rows="6"></textarea>
-                                    </li>
-                                    <li>
-                                    <label for="StatusInput">Status</label>
-                                    <select name="statusInput" id="statusInput">
-                                        <option value="Available">Available</option>
-                                        <option value="Booked">Booked</option>
-                                        <option value="Reserved">Reserved</option>
-                                    </select>
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <div id="eventInfoStatus"></div>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button id="eventInfoButton" type="button" class="btn btn-primary">Update</button>
-                        </div>
+                        <form class="booking_form", name="booking_form">
+                            <div class="modal-body">
+                                    <ul>
+                                        <li>
+                                        <label for="startDateInput">Start Date</label>
+                                        <input type="text" name="startdate" id="startDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
+                                        </li>
+                                        <li>
+                                        <label for="endDateInput">End Date</label>
+                                        <input type="text" name="enddate" id="endDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+                                        </li>
+                                        <li>
+                                        <label for="nameInput">Name</label>
+                                        <input type="text" name="name" id="nameInput" placeholder="Your Name" required  />
+                                        </li>
+                                        <li>
+                                        <label for="emailInput">Email</label>
+                                        <input type="email" name="email" id="emailInput" placeholder="email@example.com" />
+                                        </li>
+                                        <li>
+                                        <label for="telInput">Tel</label>
+                                        <input type="text" name="tel" id="telInput" required pattern="[0-9 -]{7,32}" />
+                                        </li>
+                                        <li>
+                                        <label for="infoInput">Info</label>
+                                        <textarea name="info" id="infoInput" cols="40" rows="6"></textarea>
+                                        </li>
+                                        <li>
+                                        <label for="StatusInput">Status</label>
+                                        <select name="statusInput" id="statusInput">
+                                            <option value="Available">Available</option>
+                                            <option value="Booked">Booked</option>
+                                            <option value="Reserved">Reserved</option>
+                                        </select>
+                                        </li>
+                                    </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <div id="eventInfoStatus"></div>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button id="eventInfoButton" type="button" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
                       </div>
                     </div>
                     </div>
@@ -325,41 +369,49 @@ $(document).ready(function() {
 
             <h1 class="pricelist">Weekly Pricing 
                 {% if user.is_staff %}
+                  <span class="badge"><a href="#" class="staff-add-price">+</a></span>
+                {% endif %}
+                </h1>
+
+                {% if user.is_staff %}
                     <!-- Modal HTML -->
-                    <div id="myModal" class="modal fade">
+                    <div id="bpModal" class="modal fade">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title">Confirmation</h4>
+                          <h4 class="modal-title">Booking Price</h4>
                         </div>
-                        <div class="modal-body">
-                          <p>Do you want to save changes you made to document before closing?</p>
-                          <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
+                        <form class="booking_form", name="booking_price_form">
+                            <div class="modal-body">
+                                    <ul>
+                                        <li>
+                                        <label for="bpStartDateInput">Start Date</label>
+                                        <input type="text" name="bpStartDate" id="bpStartDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+                                        </li>
+                                        <li>
+                                        <label for="bpEndDateInput">End Date</label>
+                                        <input type="text" name="bpEndDate" id="bpEndDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+                                        </li>
+                                        <li>
+                                        <label for="bpPriceInput">Price</label>
+                                        <input type="text" name="price" id="bpPriceInput" placeholder="123.00" required pattern="[1-9]{1}[0-9]{0,3}(\.[0-9]{2})" />
+                                        </li>
+                                    </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <div id="eventInfoStatus"></div>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button id="addPriceButton" type="button" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
                       </div>
                     </div>
                     </div>
-                  <span class="badge"><a href="#" class="staff-add-price">+</a></span>
-
-
-                  <script type="text/javascript">
-                    $(document).ready(function(){
-                      $(".staff-add-price").click(function(){
-                        $("#myModal").modal('show');
-                      });
-                    });
-                  </script>
-
                 {% endif %}
-            </h1>
             <table class="pricelist-table">
             {% for p in prices %}
-              <tr><td class="date-cell">{{ p.start }} - {{p.end }}</td><td class="price-cell">&pound;{{ p.price }}</td><tr>
+            <tr><td class="date-cell">{{ p.start }} - {{p.end }}</td><td class="price-cell">&pound;{{ p.price }}</td><tr>
             {% endfor %}
             </table>
 
