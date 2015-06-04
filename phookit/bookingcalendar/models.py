@@ -12,6 +12,7 @@ BOOKING_STATUS_CHOICES = (
     ('Available', 'Available'),
     ('Reserved',  'Reserved'),
     ('Booked',    'Booked'),
+    ('Cancelled',    'Cancelled'),
 )
 
 class Booking(models.Model):

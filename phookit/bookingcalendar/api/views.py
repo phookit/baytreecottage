@@ -2,8 +2,8 @@ from django.conf import settings
 from django.db.models import Q
 from rest_framework import generics
 from rest_framework import permissions
-from .serializers import BookingSerializer, BookingAdminSerializer
-from phookit.bookingcalendar.models import Booking
+from .serializers import BookingSerializer, BookingAdminSerializer, BookingPriceAdminSerializer
+from phookit.bookingcalendar.models import Booking, BookingPrice
 
 
 # TODO: Move into permissions.py
@@ -49,9 +49,8 @@ class BookingList(generics.ListCreateAPIView):
         start = self.request.QUERY_PARAMS.get('start', None)
         end = self.request.QUERY_PARAMS.get('end', None)
         if start and end:
-            #queryset = queryset.filter(calendaritem__start_day>=start).filter(calendaritem__end_day<=end)
-            #queryset = queryset.filter(start__gte=start).filter(end__lte=end)
-            queryset = queryset.filter(Q(start__gte=start) | Q(end__lte=end))
+            # get all within date but ignore cancelled bookings
+            queryset = queryset.filter(Q(start__gte=start) | Q(end__lte=end)).exclude(status__exact="Cancelled")
         return queryset
 
 
@@ -59,7 +58,6 @@ class BookingAdminDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAdminUser,)
     queryset = Booking.objects.all()
     serializer_class = BookingAdminSerializer
-
 
 
 class BookingAdminList(generics.ListCreateAPIView):
@@ -78,6 +76,33 @@ class BookingAdminList(generics.ListCreateAPIView):
         end = self.request.QUERY_PARAMS.get('end', None)
         if start and end:
             queryset = queryset.filter(Q(start__gte=start) | Q(end__lte=end))
+        return queryset
+
+
+class BookingPriceAdminDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAdminUser,)
+    queryset = BookingPrice.objects.all()
+    serializer_class = BookingPriceAdminSerializer
+
+
+class BookingPriceAdminList(generics.ListCreateAPIView):
+    '''
+    Only admins can create new calendar items
+    '''
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsAdminOrReadOnly,)
+    serializer_class = BookingPriceAdminSerializer
+
+
+    def get_queryset(self):
+        """
+        """
+        queryset = BookingPrice.objects.all()
+        last = self.request.QUERY_PARAMS.get('last', None)
+        # if last is not given we'll return all items
+        if last:
+            # fetch the latest entry only
+            queryset = [queryset.order_by('-end')[0:1].get()]
         return queryset
 
 

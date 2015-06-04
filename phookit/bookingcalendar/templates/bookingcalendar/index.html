@@ -18,37 +18,101 @@
 {% block extra_css %}
 <link href="/static/v1/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
 <link href="/static/v1/css/fullcalendar.css" rel="stylesheet" type="text/css">
+<link href="/static/v1/css/booking_form.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block extra_js %}
-<script src="/static/v1/js/jquery-ui.custom.min.js"></script>
+<script src="/static/v1/js/jquery-ui.min.js"></script>
+<script src="/static/v1/js/jquery.cookie.js"></script>
 <script src="/static/v1/js/moment.min.js"></script>
 <script src="/static/v1/js/fullcalendar.js"></script>
 <script src="/static/v1/js/lang-all.js"></script>
+
+{% if user.is_staff %}
+<script src="/static/v1/js/phookit-booking-cal-admin.js"></script>
+{% else %}
 <script>
 $(document).ready(function() {
   $('#calendar').fullCalendar({
     header: {
       left: 'prev,next today',
       center: 'title',
-      /*right: 'month'*/
     },
     aspectRatio: 2.0,
     editable: false,
     eventLimit: false,
     eventSources: [
     {
-      url: '/api/bc/feed/',
+      url: "/api/bc/feed/",
       rendering: 'background'
     }
     ]
   });
 });
 </script>
+{% endif %}
 {% endblock %}
 
 
 {% block content %}
+                {% if user.is_staff %}
+                    <!-- Modal HTML -->
+                    <div id="eventInfoModal" class="modal fade">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title">Booking Info</h4>
+                        </div>
+                        <form class="booking_form", name="booking_form">
+                            <div class="modal-body">
+                                    <ul>
+                                        <li>
+                                        <label for="startDateInput">Start Date</label>
+                                        <input type="text" name="startdate" id="startDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
+                                        </li>
+                                        <li>
+                                        <label for="endDateInput">End Date</label>
+                                        <input type="text" name="enddate" id="endDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+                                        </li>
+                                        <li>
+                                        <label for="nameInput">Name</label>
+                                        <input type="text" name="name" id="nameInput" placeholder="Your Name" required  />
+                                        </li>
+                                        <li>
+                                        <label for="emailInput">Email</label>
+                                        <input type="email" name="email" id="emailInput" placeholder="email@example.com" />
+                                        </li>
+                                        <li>
+                                        <label for="telInput">Tel</label>
+                                        <input type="text" name="tel" id="telInput" required pattern="[0-9 -]{7,32}" />
+                                        </li>
+                                        <li>
+                                        <label for="infoInput">Info</label>
+                                        <textarea name="info" id="infoInput" cols="40" rows="6"></textarea>
+                                        </li>
+                                        <li>
+                                        <label for="StatusInput">Status</label>
+                                        <select name="statusInput" id="statusInput">
+                                            <option value="Available">Available</option>
+                                            <option value="Booked">Booked</option>
+                                            <option value="Reserved">Reserved</option>
+                                            <option value="Cancelled">Cancelled</option>
+
+                                        </select>
+                                        </li>
+                                    </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <div id="eventInfoStatus"></div>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button id="eventInfoButton" type="button" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                    </div>
+                {% endif %}
 
     <div class="section"> 
         <div class="container container-heading-house">
@@ -64,10 +128,52 @@ $(document).ready(function() {
                     <td style="background-color:#b9beff;">Reserved</td>
                 </tr>
             </table>
-            <h1 class="pricelist">Weekly Pricing</h1>
+
+            <h1 class="pricelist">Weekly Pricing 
+                {% if user.is_staff %}
+                  <span class="badge"><a href="#" class="staff-add-price">+</a></span>
+                {% endif %}
+                </h1>
+
+                {% if user.is_staff %}
+                    <!-- Modal HTML -->
+                    <div id="bpModal" class="modal fade">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title">Booking Price</h4>
+                        </div>
+                        <form class="booking_form", name="booking_price_form">
+                            <div class="modal-body">
+                                    <ul>
+                                        <li>
+                                        <label for="bpStartDateInput">Start Date</label>
+                                        <input type="text" name="bpStartDate" id="bpStartDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+                                        </li>
+                                        <li>
+                                        <label for="bpEndDateInput">End Date</label>
+                                        <input type="text" name="bpEndDate" id="bpEndDateInput" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" />
+                                        </li>
+                                        <li>
+                                        <label for="bpPriceInput">Price</label>
+                                        <input type="text" name="price" id="bpPriceInput" placeholder="123.00" required pattern="[1-9]{1}[0-9]{0,3}(\.[0-9]{2})" />
+                                        </li>
+                                    </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <div id="bpEventInfoStatus"></div>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button id="addPriceButton" type="button" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                    </div>
+                {% endif %}
             <table class="pricelist-table">
             {% for p in prices %}
-              <tr><td class="date-cell">{{ p.start }} - {{p.end }}</td><td class="price-cell">&pound;{{ p.price }}</td><tr>
+            <tr><td class="date-cell">{{ p.start }} - {{p.end }}</td><td class="price-cell">&pound;{{ p.price }}</td><tr>
             {% endfor %}
             </table>
 

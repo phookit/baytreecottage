@@ -7,7 +7,7 @@
           <div class="row"> 
 
             <h1>{% trans "Contact Form" %}</h1>
-            <p>Use the form below to send us a message. Alternatively you can call Carol on <a href="tel:{{ settings.ADDRESS_MOBILE_NUMBER }}">{{ settings.ADDRESS_MOBILE_NUMBER }}</a> or <a href="tel:{{ settings.ADDRESS_OTHER_NUMBER }}">{{ settings.ADDRESS_OTHER_NUMBER }}</a></p>
+            <p>Please fill in the form below to book the cottage or for any other enquiries. Alternatively you can call Carol on <a href="tel:{{ settings.ADDRESS_MOBILE_NUMBER }}">{{ settings.ADDRESS_MOBILE_NUMBER }}</a> or <a href="tel:{{ settings.ADDRESS_OTHER_NUMBER }}">{{ settings.ADDRESS_OTHER_NUMBER }}</a></p>
             <form id="contact-form" action="" method="post">{% csrf_token %}
               <div>
                   <label for="id_name">
