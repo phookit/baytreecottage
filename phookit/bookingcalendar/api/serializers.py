@@ -21,6 +21,8 @@ class BookingSerializer(serializers.ModelSerializer):
             result = '#d29898'
         if obj.status == 'Reserved':
             result = '#b9beff'
+        if obj.status == 'Cancelled':
+            result = '#555555'
         return result
 
 

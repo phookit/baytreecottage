@@ -49,7 +49,8 @@ class BookingList(generics.ListCreateAPIView):
         start = self.request.QUERY_PARAMS.get('start', None)
         end = self.request.QUERY_PARAMS.get('end', None)
         if start and end:
-            queryset = queryset.filter(Q(start__gte=start) | Q(end__lte=end))
+            # get all within date but ignore cancelled bookings
+            queryset = queryset.filter(Q(start__gte=start) | Q(end__lte=end)).exclude(status__exact="Cancelled")
         return queryset
 
 
